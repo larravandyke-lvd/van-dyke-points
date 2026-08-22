@@ -99,13 +99,15 @@ h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
 .detail-block{margin-top:12px;font-size:12px;color:var(--ink-dim);line-height:1.6}
 .detail-block b{color:var(--ink)}
 
-/* CATEGORY GRID */
-.catgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 6px}
-.catbtn{background:none;border:none;text-align:center;cursor:pointer;font-size:10.5px;font-weight:600;color:var(--ink-dim);transition:all .12s;padding:0}
-.cat-badge{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 6px;transition:all .12s;border:1.5px solid transparent}
-.catbtn.on .cat-badge{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
-.catbtn.on{color:var(--ink)}
-.catbtn:active .cat-badge{transform:scale(.92)}
+/* CATEGORY GRID — little selectable cards */
+.catgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.catbtn{display:flex;align-items:center;gap:11px;background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:12px 13px;cursor:pointer;text-align:left;transition:all .12s;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.catbtn:active{transform:scale(.97)}
+.cat-badge{width:40px;height:40px;border-radius:11px;background:var(--panel2);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;transition:all .12s;border:1px solid var(--line)}
+.cat-label{font-size:12.5px;font-weight:700;color:var(--ink-dim);line-height:1.3;transition:color .12s}
+.catbtn.on{border-color:var(--gold);background:var(--gold-soft);box-shadow:0 4px 16px rgba(201,162,75,.22)}
+.catbtn.on .cat-badge{background:var(--gold);border-color:var(--gold)}
+.catbtn.on .cat-label{color:var(--ink)}
 
 /* RANK LIST */
 .rank{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;background:var(--panel2);border:1px solid var(--line)}
@@ -122,12 +124,18 @@ h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
 .tip-box b{color:var(--teal)}
 
 /* BALANCES */
-.bal-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.bal-row{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
 .bal-row:last-child{border-bottom:none}
+.bal-info{flex:1;min-width:0}
+.bal-name{font-size:12.5px;font-weight:600}
 .bal-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
-.bal-name{flex:1;font-size:12.5px;font-weight:600}
+.bal-updated{font-size:9.5px;color:var(--ink-faint);margin-top:2px}
+.bal-updated.stale{color:var(--amber);font-weight:700}
+.stale-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-right:4px;vertical-align:middle}
 .bal-input{width:100px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 8px;color:var(--ink);font-size:13px;text-align:right;font-weight:700}
 .bal-input:focus{outline:none;border-color:var(--teal)}
+.bal-login{font-size:9.5px;font-weight:700;color:var(--teal);text-decoration:none;white-space:nowrap;flex-shrink:0}
+.bal-login::after{content:' ↗'}
 .bal-val{font-size:10px;color:var(--ink-faint);width:56px;text-align:right}
 .bal-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
 .bal-total b{font-family:Fraunces,serif;font-size:20px;color:var(--gold)}
@@ -385,7 +393,8 @@ body.locked{overflow:hidden}
         <div class="redeem-body">
           Points only redeem across the <b>Royal Caribbean Group</b> — Royal Caribbean, Celebrity Cruises, Silversea — for cruise-fare discounts or onboard credit (dining, Wi-Fi, excursions). They don't transfer anywhere else, so this card is a specialist, not a hub.
           <div class="trip-tag">🚢 Alaska · Celebrity Edge · Aug 2026</div>
-          <br><br>Put excursion pre-payments, onboard incidentals, and anything charged to the Celebrity Edge stateroom on this card — it's 3x on Royal Caribbean Group purchases, and the points redeem straight back into onboard credit for exactly this kind of cruise.
+          <div class="trip-tag">🏰 Danube River Cruise · Celebrity Compass · Aug 2027</div>
+          <br><br>Both booked cruises are Celebrity ships, so both are Royal Caribbean Group sailings — put excursion pre-payments and anything charged to the stateroom on this card for either trip. It's 3x on Royal Caribbean Group purchases, and the points redeem straight back into onboard credit for exactly this kind of cruise.
         </div>
       </details>
       <details class="redeem-card">
@@ -393,8 +402,8 @@ body.locked{overflow:hidden}
         <div class="redeem-body">
           Ultimate Rewards transfer to 11+ airline/hotel partners, or book direct through Chase Travel where <b>Points Boost</b> can push value to ~2.5¢/pt on select flights and hotels.
           <div class="trip-tag">🎰 Las Vegas · Jul 2026</div>
-          <div class="trip-tag">🏰 Danube River Cruise · Aug 2027</div>
-          <br><br>The river cruise isn't a Royal Caribbean Group sailing, so Royal ONE points can't touch it — this is the card for it. Book the cruise line and any pre/post Budapest–Vienna hotel nights through the Chase Travel portal for 8x, or transfer points to a partner airline for the flights over.
+          <div class="trip-tag">🏰 Danube pre/post hotels & flights</div>
+          <br><br>The cruise fare itself belongs on Royal ONE, but this is still the card for everything around it — book flights to Budapest and any pre/post hotel nights (Vienna, Prague) through the Chase Travel portal for 8x, or transfer points to a partner airline for the flights over.
         </div>
       </details>
       <details class="redeem-card">
@@ -402,7 +411,7 @@ body.locked{overflow:hidden}
         <div class="redeem-body">
           Membership Rewards transfer to 20+ airline/hotel partners at typically better value than Amex's own Pay-with-Points travel redemption — save transfers for a specific award flight or hotel night rather than cashing out early.
           <div class="trip-tag">🎰 Las Vegas dinners</div>
-          <div class="trip-tag">🏰 Danube dining</div>
+          <div class="trip-tag">🏰 Budapest/Vienna dining</div>
           <br><br>This is the everyday-spend engine (groceries, restaurants) that funds transfers for the bigger trips — let balances build here and transfer only when you've picked the specific flight or hotel you want.
         </div>
       </details>
@@ -430,27 +439,27 @@ body.locked{overflow:hidden}
 
 <script>
 const CARDS = [
-  {id:'amex', name:'Amex Gold', sub:'Rose Gold · Membership Rewards', af:'$325/yr', css:'c-amex', net:'amex', last4:'4471', ptValue:0.017,
+  {id:'amex', name:'Amex Gold', sub:'Rose Gold · Membership Rewards', af:'$325/yr', css:'c-amex', net:'amex', last4:'4471', login:'https://www.americanexpress.com/en-us/account/login', ptValue:0.017,
     rates:{groceries:4,gas:1,dining:4,flights:3,hotels:5,rc:2,rentalcars:2,othercruise:2,entertainment:1,other:1},
     rateNotes:{groceries:'4x, capped $25k/yr',dining:'4x worldwide, capped $50k/yr',hotels:'5x prepaid via Amex Travel',flights:'3x via Amex Travel or direct',rc:'2x cruises via Amex Travel',rentalcars:'2x prepaid via Amex Travel',othercruise:'2x via Amex Travel'},
     redemption:'Transfer to 20+ airline/hotel partners (best value), or Pay-with-Points on AmexTravel.com.',
     protections:'Purchase protection, extended warranty, Uber Cash + Resy/Dunkin dining credits, Hertz Five Star status. No lounge access.'},
-  {id:'citi', name:'Citi ThankYou', sub:'Preferred · ThankYou Points', af:'$0/yr', css:'c-citi', net:'mc', last4:'2208', ptValue:0.01,
+  {id:'citi', name:'Citi ThankYou', sub:'Preferred · ThankYou Points', af:'$0/yr', css:'c-citi', net:'mc', last4:'2208', login:'https://online.citi.com', ptValue:0.01,
     rates:{groceries:1,gas:1,dining:2,flights:1,hotels:1,rc:1,rentalcars:1,othercruise:1,entertainment:2,other:1},
     rateNotes:{dining:'2x dining & entertainment',entertainment:'2x dining & entertainment'},
     redemption:'~1¢/pt to gift cards, Amazon, or statement credit. Transfer partners exist but at a lower ratio than Citi’s premium cards.',
     protections:'Extended warranty (+24mo), purchase protection, no annual fee.'},
-  {id:'csr', name:'Sapphire Reserve', sub:'Chase · Ultimate Rewards', af:'$795/yr', css:'c-csr', net:'visa', last4:'9013', ptValue:0.019,
+  {id:'csr', name:'Sapphire Reserve', sub:'Chase · Ultimate Rewards', af:'$795/yr', css:'c-csr', net:'visa', last4:'9013', login:'https://secure.chase.com', ptValue:0.019,
     rates:{groceries:1,gas:1,dining:3,flights:4,hotels:4,rc:1,rentalcars:1,othercruise:1,entertainment:1,other:1},
     rateNotes:{dining:'3x worldwide',flights:'4x booked direct — or 8x through Chase Travel',hotels:'4x booked direct — or 8x through Chase Travel',rentalcars:'8x through Chase Travel',othercruise:'8x through Chase Travel (cruises count as Chase Travel)',rc:'8x if booked through Chase Travel'},
     redemption:'Transfer to 11+ airline/hotel partners, or book via Chase Travel for 8x plus Points Boost (up to ~2.5¢/pt on select flights/hotels).',
     protections:'Primary rental car CDW, trip cancellation/interruption, trip delay, baggage delay, Priority Pass + Sapphire Lounge network, $2,700+ in annual credits (dining, hotel, Lyft, StubHub, Apple).'},
-  {id:'royal', name:'Royal ONE', sub:'Visa Signature · Royal Caribbean Group', af:'$0/yr', css:'c-royal', net:'visa', last4:'5566', ptValue:0.01,
+  {id:'royal', name:'Royal ONE', sub:'Visa Signature · Royal Caribbean Group', af:'$0/yr', css:'c-royal', net:'visa', last4:'5566', login:'https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go', ptValue:0.01,
     rates:{groceries:2,gas:2,dining:1,flights:1,hotels:1,rc:3,rentalcars:1,othercruise:0,entertainment:1,other:1},
     rateNotes:{groceries:'2x groceries, gas & EV charging',gas:'2x groceries, gas & EV charging',rc:'3x on Royal Caribbean / Celebrity / Silversea purchases',othercruise:'Doesn’t earn or redeem outside Royal Caribbean Group'},
     redemption:'1¢/pt starting at 5,000 pts, toward cruise discounts or onboard credit — Royal Caribbean, Celebrity, and Silversea only. Not transferable elsewhere.',
     protections:'No foreign transaction fee, Visa Signature travel protections, priority boarding, $100 anniversary reward after $10k/yr spend, TSA PreCheck/Global Entry credit.'},
-  {id:'united', name:'United Club', sub:'Infinite · MileagePlus', af:'$695/yr', css:'c-united', net:'visa', last4:'3127', ptValue:0.013,
+  {id:'united', name:'United Club', sub:'Infinite · MileagePlus', af:'$695/yr', css:'c-united', net:'visa', last4:'3127', login:'https://secure.chase.com', ptValue:0.013,
     rates:{groceries:1,gas:1,dining:2,flights:2,hotels:2,rc:1,rentalcars:1,othercruise:1,entertainment:1,other:1},
     rateNotes:{flights:'4x on United-specific purchases, 2x other travel',dining:'2x on travel & dining',hotels:'2x other travel'},
     redemption:'MileagePlus miles for United / Star Alliance award flights — some fares with no blackout dates.',
@@ -518,7 +527,8 @@ function renderDetail(){
 function renderCatGrid(){
   document.getElementById('catGrid').innerHTML = CATS.map(cat=>
     `<div class="catbtn ${cat.id===selectedCat?'on':''}" onclick="pickCategory('${cat.id}')">
-      <span class="ic">${cat.ic}</span>${cat.label}
+      <div class="cat-badge">${cat.ic}</div>
+      <div class="cat-label">${cat.label}</div>
     </div>`).join('');
 }
 function activePromosFor(cardId, catId){
@@ -554,8 +564,8 @@ function pickCategory(catId){
   }).join('');
 
   const tipMap = {
-    rc:'Charge onboard purchases and pre-cruise extras for the Alaska sailing here — Royal ONE points redeem straight back into onboard credit.',
-    othercruise:'The Danube river cruise isn’t a Royal Caribbean Group sailing, so route it through Sapphire Reserve or Amex Gold instead of Royal ONE.',
+    rc:'Charge onboard purchases and pre-cruise extras here for both cruises — Alaska on Celebrity Edge and the Danube river cruise on Celebrity Compass are both Royal Caribbean Group sailings, so Royal ONE points redeem straight back into onboard credit for either.',
+    othercruise:'This bucket is for cruise lines outside Royal Caribbean Group (Viking, Uniworld, Princess, etc.) — none of your booked trips fall here right now, since Alaska and the Danube are both Celebrity.',
     hotels:'Book through Chase Travel for the 8x rate, or direct for 4x plus full hotel-brand loyalty credit.',
     flights:'Booking direct earns loyalty credit; booking via Chase Travel earns more points. Pick based on whether you need status.',
     gas:'Royal ONE is the only card in the wallet that bonuses gas — worth a swipe here even outside cruise season.'
@@ -569,6 +579,7 @@ function pickCategory(catId){
 }
 
 // ---------- BALANCES ----------
+const STALE_DAYS = 14;
 function getBalances(){
   try{ return JSON.parse(localStorage.getItem('vdp_balances')) || {}; }catch(e){ return {}; }
 }
@@ -577,13 +588,34 @@ function saveBalances(b){
   const f=document.getElementById('saveFlag'); f.textContent='Saved ✓';
   clearTimeout(window._sf); window._sf=setTimeout(()=>f.textContent='',1200);
 }
+function getBalDates(){
+  try{ return JSON.parse(localStorage.getItem('vdp_balance_dates')) || {}; }catch(e){ return {}; }
+}
+function saveBalDates(d){ localStorage.setItem('vdp_balance_dates', JSON.stringify(d)); }
+function daysSince(iso){
+  if(!iso) return Infinity;
+  return Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+}
+function updatedLabel(iso){
+  const d = daysSince(iso);
+  if(d === Infinity) return 'Never entered';
+  if(d === 0) return 'Updated today';
+  if(d === 1) return 'Updated yesterday';
+  return `Updated ${d} days ago`;
+}
 function renderBalances(){
   const bal = getBalances();
+  const dates = getBalDates();
   document.getElementById('balList').innerHTML = CARDS.map(c=>{
     const v = bal[c.id]||0;
+    const stale = daysSince(dates[c.id]) >= STALE_DAYS;
     return `<div class="bal-row">
       <div class="bal-dot" style="background:${dotColor(c.css)}"></div>
-      <div class="bal-name">${c.name}</div>
+      <div class="bal-info">
+        <div class="bal-name">${c.name}</div>
+        <div class="bal-updated ${stale?'stale':''}">${stale?'<span class="stale-dot"></span>':''}${updatedLabel(dates[c.id])}${stale?' — check for an update':''}</div>
+        <a class="bal-login" href="${c.login}" target="_blank">Log in to check</a>
+      </div>
       <input class="bal-input" type="number" min="0" step="1" value="${v}" onchange="updateBalance('${c.id}',this.value)">
     </div>`;
   }).join('');
@@ -596,7 +628,10 @@ function updateBalance(id, val){
   const bal = getBalances();
   bal[id] = Math.max(0, parseInt(val)||0);
   saveBalances(bal);
-  updateTotal();
+  const dates = getBalDates();
+  dates[id] = new Date().toISOString();
+  saveBalDates(dates);
+  renderBalances();
 }
 function updateTotal(){
   const bal = getBalances();
