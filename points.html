@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Van Dyke Points Portal</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='4' y1='2' x2='60' y2='62' gradientUnits='userSpaceOnUse'><stop offset='0' stop-color='%23f6e3b4'/><stop offset='.5' stop-color='%23c9a24b'/><stop offset='1' stop-color='%237a5a35'/></linearGradient></defs><rect x='2' y='2' width='60' height='60' rx='18' fill='url(%23g)'/><rect x='6.5' y='6.5' width='51' height='51' rx='14' fill='none' stroke='%231b1207' stroke-opacity='.28' stroke-width='1'/><text x='32' y='45' font-family='Georgia,serif' font-style='italic' font-weight='700' font-size='33' fill='%231b1207' text-anchor='middle'>V</text><path d='M48.5 12.5 L50 16.5 L54 18 L50 19.5 L48.5 23.5 L47 19.5 L43 18 L47 16.5 Z' fill='%23fff6e2'/><circle cx='14' cy='50' r='1.6' fill='%23fff6e2' fill-opacity='.85'/></svg>">
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAFeklEQVRYhcWX228UdRTHP7vTshTapS2Ui72JaEGCXFTEGGnUhkTFROIFY9Qn0f8B/woffMD7gxgBYyKJLypqkMSqMfFBhURAQS6h6YV229LOzO+c48POzM7M7qI+OcnmTM9u53vO9/s9v7ML//NVaPbG5OkP9oDsVwt3m0ifiltuKqg60tFUUMnmojiv4i6ZulNqdmzrvvdO/KsCKmeODDnCt83csKrDpB40iY2Bm+VPEgSv7Hjhk7NNC7j++4fDpvKpqesKw5CxsQn8IARziETdRl1XX4qaw1QxrUaNIlSjV1S6O0qAYKrXRdyTu146fqqugMqZI0OuEHxv4rpmKrNMTE6zdnWZVq8QgTpUoqi5eJO87/tcm5ijs92jrVTEVKYkcLseOPD5OYBiXIDDP1QFrzAzU2GgtzsCd5i4iNYciDQBT+VbPOjtWUplbpHZuUVErFsLxXdj3GJsOFV5OHQB45MzrFvTiUZaauQB1Ti6KO9qfzfIW5RbVr4FFUdPZ4mpGZ8wVJww/PWhR0eSAtSC50wdY2MTrO3pqHabe1BCtTSRIJdXdbSt6GfdnY+hqoga3eUS49OLiBji2F+TQN2Dqg7fD2n1CvUOFklJkIoZaWqxUPDo6rubwe3PUl69iYFtz9JW7sPzigSBoWqI6TBAC4CK9Jo6sEbm+u/jZ0VANZkuNaqgAmqGiOHU+pICTF17nYnyNP+XvFtk7M9R5q5fo2/LXs79eARREDVULIq01xhIdGvSXWTEv65Mcv7iOGaKqVIswv1b1ySf++3sBFMzNzA1erqWMhieJ/j5eBU8AhaLmFAjLcG/mu8gCDj62S+cvTDJmlXLefnpuzLvL/oBbx47w45NK3n8wQFEjJnxCwm4iqFSYyIxYc1EctP5vrW3zPDOAQDmboTs2rY6U2wYCm2lFg48tYm+tcurwHHnYnUy1MYwWSxNxi/l+C13rARg/kbApavTSd454fBn53n+8Q0UiwVEDI2pl8j5cS4yZIqBWHulobNTC+m2vnZKSzwATp+dRNUhapwYvUpbyePezT21buPuI8Ck++i+xsA/nGrpVwFlaLCzWsAfU4gaNxaEj7/8gxf33l7tVElolpTuIrEJcx5IujVJHTrNDiNh84YuAM78OY2Icfybi9x1ezeDt3RUu8vrnpIhXUzWhOIgoTp9/Nb7YtP6MgBjEwucvzTLie8vs29kfcbtMXiaiYwMWQluvtEyZ7wIG/o78IrVTf764V8Zua+XzvYlWd1zTMSG1JQnMhKoOtSERhvNEk8IqsaSFo+BdR0AiFP2PNCXAGpCffq+sSFzEjTeaBppH2+0+IFDgysAeGbPelqLXurhWd3TlOcNmToJ3ZyppPZB/rug1tG3feNKZucD7tm8JkVzDTzdfSNWVK2SWkZyRdVtbLzpNPfP1Q6GBlewob+cfXjcXdJ1yoS5CVAtXEl74JSJwysovu+j6lg1sJOVA/fnnE2OUurBpQaeGUcBPxSIV7Pat0kBYu6oqtBVbmVscj4yJaljs17XeKPVn/e1wjIyiDFV8Wlb2ooIOLVjkPpW/NNHz3xlGj4yO79IZdZnVdey2u5WskzU7/Y66jP3YkxVFii1ttBS9HBmJw8eGn0oYQBAQv+Aiky0LfFYtrSVy9fmWQhc440mORkaTED8vh8I49MLlFpa8KrTMkXIgRg388Pkh/f37g7VPhW1bueUieuLBM5QUdTAUl8mNLo3rRVgmvNBddJYVmrFrICKTanKvtfe+bH+h0l8nTz0xB1adG+Js4eaubiRDIknctSnct+YFF49+O7ouTRe0x+nX7zx6IiI7he13SLWr0p7Zt5TgBlD1jwz59QumbNTIoWjB9/57utmWP/r9TdAKJ/JWByY0gAAAABJRU5ErkJggg==">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
+<meta name="theme-color" content="#12141f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="VD Points">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#12141f; --panel:#1b1e2e; --panel2:#20243a; --line:#2c3049;
+  --ink:#ece9e2; --ink-dim:#a6a9bd; --ink-faint:#6c7089;
+  --gold:#c9a24b; --gold-soft:rgba(201,162,75,.14);
+  --teal:#2ba89a; --teal-soft:rgba(43,168,154,.14);
+  --green:#34a574; --amber:#e0a93e; --red:#d9614f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(201,162,75,.10), transparent 60%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0px, rgba(255,255,255,.018) 1px, transparent 1px, transparent 26px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.014) 0px, rgba(255,255,255,.014) 1px, transparent 1px, transparent 26px);
+  color:var(--ink);font-family:Inter,-apple-system,sans-serif;min-height:100vh;padding-bottom:60px}
+.app{max-width:720px;margin:0 auto;padding:18px 14px 40px}
+h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
+::selection{background:var(--gold-soft)}
+
+/* HEADER */
+.hdr{text-align:center;padding:14px 0 18px}
+.seal{width:56px;height:56px;border-radius:50%;margin:0 auto 12px;position:relative;background:radial-gradient(circle at 35% 30%,#f3e2b3,#c9a24b 45%,#8a6a3f 85%);box-shadow:0 4px 16px rgba(201,162,75,.35), inset 0 0 0 1px rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center}
+.seal::before{content:'';position:absolute;inset:4px;border-radius:50%;border:1px solid rgba(18,20,31,.35)}
+.seal-mono{font-family:Fraunces,serif;font-weight:700;font-size:16px;color:#1b1207;letter-spacing:-.5px}
+.hdr-eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:4px}
+.hdr h1{font-size:27px;font-weight:600;letter-spacing:-.3px}
+.hdr p{font-size:11.5px;color:var(--ink-dim);margin-top:6px;font-style:italic}
+.hdr-rule{width:64px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto 0}
+
+/* TICKER */
+.ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel);overflow:hidden;white-space:nowrap;margin-bottom:18px}
+.ticker-track{display:inline-flex;width:max-content;padding:8px 0;animation:tickerScroll 34s linear infinite}
+.ticker-item{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--ink-dim);padding:0 20px;border-right:1px solid var(--line)}
+.ticker-item b{color:var(--gold);font-weight:800}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.ticker-track{animation:none}}
+
+/* WALLET STRIP */
+.wallet{display:flex;gap:12px;overflow-x:auto;padding:8px 4px 16px;scroll-snap-type:x mandatory}
+.wallet::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;width:172px;height:108px;border-radius:16px;padding:13px;cursor:pointer;position:relative;overflow:hidden;scroll-snap-align:start;transition:transform .15s,box-shadow .15s;border:2px solid transparent;box-shadow:0 6px 18px rgba(0,0,0,.35);display:flex;flex-direction:column;justify-content:space-between}
+.chip:active{transform:scale(.97)}
+.chip.on{border-color:var(--gold);box-shadow:0 6px 22px rgba(201,162,75,.35)}
+/* embossed sheen */
+.chip::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 30%,rgba(255,255,255,0) 70%,rgba(255,255,255,.08) 100%);pointer-events:none}
+.chip::after{content:'';position:absolute;top:-40%;left:-20%;width:70%;height:180%;background:rgba(255,255,255,.07);transform:rotate(20deg);pointer-events:none}
+.chip-top{display:flex;align-items:flex-start;justify-content:space-between;position:relative;z-index:1}
+.emv{width:28px;height:21px;border-radius:4px;background:linear-gradient(155deg,#f3e2b3,#c9a24b 55%,#8a6a3f);position:relative;flex-shrink:0}
+.emv::before{content:'';position:absolute;inset:3px;border:1px solid rgba(0,0,0,.25);border-radius:2px}
+.emv::after{content:'';position:absolute;left:50%;top:3px;bottom:3px;width:1px;background:rgba(0,0,0,.25)}
+.chip-af-badge{font-size:8.5px;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.04em}
+.chip-mid{position:relative;z-index:1}
+.chip-num{font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.75);font-family:'Courier New',monospace;margin-bottom:6px}
+.chip-name{font-size:12.5px;font-weight:700;color:#fff;line-height:1.25}
+.chip-sub{font-size:8.5px;color:rgba(255,255,255,.7);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+.chip-bottom{display:flex;align-items:flex-end;justify-content:space-between;position:relative;z-index:1}
+.net-mark{font-size:12px;font-weight:800;color:rgba(255,255,255,.92);letter-spacing:.01em}
+.net-visa{font-family:Georgia,serif;font-style:italic;font-size:15px;letter-spacing:.01em}
+.net-amex{font-size:8px;font-weight:700;letter-spacing:.09em;border:1.4px solid rgba(255,255,255,.85);border-radius:3px;padding:2px 5px}
+.net-mc{display:flex;align-items:center;width:30px;height:18px;position:relative}
+.net-mc span{position:absolute;top:0;width:18px;height:18px;border-radius:50%}
+.net-mc span:first-child{left:0;background:#eb5c2b;opacity:.9}
+.net-mc span:last-child{left:11px;background:#f2a51a;opacity:.85;mix-blend-mode:screen}
+.c-amex{background:linear-gradient(135deg,#8a6a3f,#d9b06a 45%,#7a5a35)}
+.c-citi{background:linear-gradient(135deg,#0b3a6b,#1863b0 50%,#0b3a6b)}
+.c-csr{background:linear-gradient(135deg,#131b3a,#2b3d73 50%,#0d1229)}
+.c-royal{background:linear-gradient(135deg,#0a4f52,#1f9490 50%,#0a4f52)}
+.c-united{background:linear-gradient(135deg,#001e4d,#0e4aa8 50%,#001433)}
+
+/* SECTION */
+.sec{margin-bottom:20px}
+.sh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.st{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.st-sub{font-size:11px;color:var(--ink-faint)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+.panel+.panel{margin-top:8px}
+
+/* CARD DETAIL */
+.detail-name{font-size:17px;font-weight:600;font-family:Fraunces,serif}
+.detail-meta{font-size:11.5px;color:var(--ink-faint);margin-top:2px}
+.rate-grid{display:grid;grid-template-columns:1fr auto;gap:6px 10px;margin-top:12px;font-size:12.5px}
+.rate-cat{color:var(--ink-dim)}
+.rate-val{font-weight:700;color:var(--gold);text-align:right}
+.detail-block{margin-top:12px;font-size:12px;color:var(--ink-dim);line-height:1.6}
+.detail-block b{color:var(--ink)}
+
+/* CATEGORY GRID */
+.catgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 6px}
+.catbtn{background:none;border:none;text-align:center;cursor:pointer;font-size:10.5px;font-weight:600;color:var(--ink-dim);transition:all .12s;padding:0}
+.cat-badge{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 6px;transition:all .12s;border:1.5px solid transparent}
+.catbtn.on .cat-badge{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.catbtn.on{color:var(--ink)}
+.catbtn:active .cat-badge{transform:scale(.92)}
+
+/* RANK LIST */
+.rank{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;background:var(--panel2);border:1px solid var(--line)}
+.rank+.rank{margin-top:7px}
+.rank.first{border-color:var(--gold);background:var(--gold-soft)}
+.rank-medal{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.rank-body{flex:1;min-width:0}
+.rank-name{font-size:13px;font-weight:700}
+.rank-note{font-size:10.5px;color:var(--ink-faint);margin-top:2px;line-height:1.4}
+.rank-rate{font-size:15px;font-weight:800;color:var(--gold);text-align:right;flex-shrink:0}
+.rank-val{font-size:9.5px;color:var(--ink-faint);text-align:right}
+.promo-flag{display:inline-block;font-size:9px;font-weight:700;color:var(--amber);background:rgba(224,169,62,.15);padding:2px 6px;border-radius:6px;margin-top:4px}
+.tip-box{background:var(--teal-soft);border:1px solid rgba(43,168,154,.35);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:11.5px;color:var(--ink-dim);line-height:1.55}
+.tip-box b{color:var(--teal)}
+
+/* BALANCES */
+.bal-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.bal-row:last-child{border-bottom:none}
+.bal-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.bal-name{flex:1;font-size:12.5px;font-weight:600}
+.bal-input{width:100px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 8px;color:var(--ink);font-size:13px;text-align:right;font-weight:700}
+.bal-input:focus{outline:none;border-color:var(--teal)}
+.bal-val{font-size:10px;color:var(--ink-faint);width:56px;text-align:right}
+.bal-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.bal-total b{font-family:Fraunces,serif;font-size:20px;color:var(--gold)}
+.save-flag{font-size:10px;color:var(--green);text-align:right;margin-top:6px;height:12px}
+
+/* PROMOS */
+.promo-item{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;position:relative}
+.promo-item.active{border-color:var(--amber)}
+.promo-item+.promo-item{margin-top:8px}
+.promo-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.promo-card{font-size:12px;font-weight:700}
+.promo-cat{font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.promo-status{font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;flex-shrink:0}
+.status-active{background:rgba(224,169,62,.18);color:var(--amber)}
+.status-upcoming{background:rgba(43,168,154,.18);color:var(--teal)}
+.status-expired{background:rgba(255,255,255,.06);color:var(--ink-faint)}
+.promo-bonus{font-size:13px;margin-top:6px}
+.promo-dates{font-size:10.5px;color:var(--ink-faint);margin-top:4px}
+.promo-note{font-size:11px;color:var(--ink-dim);margin-top:4px;line-height:1.5}
+.promo-del{position:absolute;top:10px;right:10px;font-size:11px;color:var(--ink-faint);cursor:pointer;background:none;border:none;padding:4px}
+.empty{font-size:12px;color:var(--ink-faint);text-align:center;padding:16px 0}
+
+/* SPECIALS: quick links */
+.link-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.link-row:last-child{border-bottom:none}
+.link-row a{color:var(--teal);text-decoration:none;font-weight:600}
+.link-row a::after{content:' ↗';font-size:10px}
+.link-note{font-size:10.5px;color:var(--ink-faint)}
+
+/* SPECIALS: found results */
+.found-item{background:var(--panel2);border:1px solid rgba(224,169,62,.35);border-radius:12px;padding:12px;margin-top:8px}
+.found-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.found-card{font-size:12px;font-weight:700}
+.found-cat{font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.found-bonus{font-size:13px;margin-top:6px}
+.found-dates{font-size:10.5px;color:var(--ink-faint);margin-top:4px}
+.found-note{font-size:11px;color:var(--ink-dim);margin-top:4px;line-height:1.5}
+.found-src{font-size:10px;color:var(--ink-faint);margin-top:6px;font-style:italic}
+.found-add{margin-top:8px;padding:7px 14px;border-radius:8px;border:none;background:var(--gold);color:#1b1207;font-size:11.5px;font-weight:700;cursor:pointer}
+.found-add:disabled{background:var(--line);color:var(--ink-faint)}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.25);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* FORM */
+.form-row{margin-bottom:10px}
+.form-row label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);display:block;margin-bottom:5px}
+.form-row select,.form-row input,.form-row textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 10px;color:var(--ink);font-size:13px;font-family:Inter,sans-serif}
+.form-row select:focus,.form-row input:focus,.form-row textarea:focus{outline:none;border-color:var(--teal)}
+.form-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{width:100%;padding:12px;border-radius:10px;border:none;font-size:13px;font-weight:700;cursor:pointer}
+.btn-primary{background:var(--gold);color:#1b1207}
+.btn-ghost{background:none;border:1px dashed var(--line);color:var(--ink-dim);margin-top:8px}
+.addbtn-wrap{margin-top:10px}
+
+/* REDEMPTION */
+.redeem-card{margin-bottom:6px}
+.redeem-card summary{cursor:pointer;font-size:13px;font-weight:700;padding:12px 14px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.redeem-card summary::-webkit-details-marker{display:none}
+.redeem-card summary::after{content:'+';font-size:16px;color:var(--ink-faint);font-weight:400}
+.redeem-card[open] summary::after{content:'–'}
+.redeem-body{padding:0 14px 14px;font-size:12px;color:var(--ink-dim);line-height:1.65}
+.redeem-body b{color:var(--ink)}
+.trip-tag{display:inline-block;font-size:9.5px;font-weight:700;background:var(--teal-soft);color:var(--teal);padding:2px 7px;border-radius:6px;margin:6px 4px 0 0}
+
+.foot{text-align:center;font-size:10.5px;color:var(--ink-faint);margin-top:30px;line-height:1.7;padding:0 10px}
+
+/* LOCK SCREEN */
+#lock{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px}
+.lock-box{width:100%;max-width:280px;text-align:center}
+.lock-icon{width:52px;height:52px;border-radius:50%;background:var(--gold-soft);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px}
+.lock-box h2{font-size:20px;font-weight:600;margin-bottom:6px}
+.lock-box p{font-size:12px;color:var(--ink-dim);margin-bottom:20px}
+.lock-dots{display:flex;gap:10px;justify-content:center;margin-bottom:18px}
+.lock-dot{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--line);background:transparent;transition:all .1s}
+.lock-dot.filled{background:var(--gold);border-color:var(--gold)}
+.lock-dot.err{background:var(--red);border-color:var(--red)}
+.lock-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:220px;margin:0 auto}
+.lock-key{aspect-ratio:1;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:18px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif}
+.lock-key:active{background:var(--panel2)}
+.lock-key.wide{grid-column:span 1;font-size:13px;color:var(--ink-faint)}
+.lock-err{font-size:11px;color:var(--red);margin-top:14px;height:14px}
+body.locked{overflow:hidden}
+</style>
+</head>
+<body>
+
+<div id="lock">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <h2>Van Dyke Points</h2>
+    <p>Enter PIN to unlock</p>
+    <div class="lock-dots" id="lockDots">
+      <div class="lock-dot"></div><div class="lock-dot"></div><div class="lock-dot"></div><div class="lock-dot"></div>
+    </div>
+    <div class="lock-pad">
+      <button class="lock-key" onclick="lockPress('1')">1</button>
+      <button class="lock-key" onclick="lockPress('2')">2</button>
+      <button class="lock-key" onclick="lockPress('3')">3</button>
+      <button class="lock-key" onclick="lockPress('4')">4</button>
+      <button class="lock-key" onclick="lockPress('5')">5</button>
+      <button class="lock-key" onclick="lockPress('6')">6</button>
+      <button class="lock-key" onclick="lockPress('7')">7</button>
+      <button class="lock-key" onclick="lockPress('8')">8</button>
+      <button class="lock-key" onclick="lockPress('9')">9</button>
+      <button class="lock-key wide" onclick="lockClear()">clear</button>
+      <button class="lock-key" onclick="lockPress('0')">0</button>
+      <button class="lock-key wide" onclick="lockBack()">⌫</button>
+    </div>
+    <div class="lock-err" id="lockErr"></div>
+  </div>
+</div>
+
+<div class="app">
+
+  <div class="hdr">
+    <div class="seal">
+      <svg viewBox="0 0 64 64" width="56" height="56">
+        <defs>
+          <linearGradient id="sealG" x1="4" y1="2" x2="60" y2="62" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#f6e3b4"/>
+            <stop offset=".5" stop-color="#c9a24b"/>
+            <stop offset="1" stop-color="#7a5a35"/>
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="60" height="60" rx="18" fill="url(#sealG)"/>
+        <rect x="6.5" y="6.5" width="51" height="51" rx="14" fill="none" stroke="#1b1207" stroke-opacity=".28" stroke-width="1"/>
+        <text x="32" y="45" font-family="Georgia,serif" font-style="italic" font-weight="700" font-size="33" fill="#1b1207" text-anchor="middle">V</text>
+        <path d="M48.5 12.5 L50 16.5 L54 18 L50 19.5 L48.5 23.5 L47 19.5 L43 18 L47 16.5 Z" fill="#fff6e2"/>
+        <circle cx="14" cy="50" r="1.6" fill="#fff6e2" fill-opacity=".85"/>
+      </svg>
+    </div>
+    <div class="hdr-eyebrow">Van Dyke</div>
+    <h1>Points Portal</h1>
+    <p>Five cards. One answer: which one to pull out.</p>
+    <div class="hdr-rule"></div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- WALLET -->
+  <div class="wallet" id="wallet"></div>
+
+  <!-- CARD DETAIL -->
+  <div class="sec">
+    <div class="panel" id="cardDetail"></div>
+  </div>
+
+  <!-- CATEGORY RECOMMENDER -->
+  <div class="sec">
+    <div class="sh"><div class="st">What are you buying?</div></div>
+    <div class="catgrid" id="catGrid"></div>
+  </div>
+
+  <div class="sec" id="rankSection" style="display:none">
+    <div class="sh"><div class="st" id="rankTitle">Best card</div></div>
+    <div id="rankList"></div>
+    <div class="tip-box" id="rankTip" style="display:none"></div>
+  </div>
+
+  <!-- BALANCES -->
+  <div class="sec">
+    <div class="sh"><div class="st">Points balances</div><div class="st-sub">tap to edit</div></div>
+    <div class="panel">
+      <div id="balList"></div>
+      <div class="bal-total"><span style="font-size:12px;color:var(--ink-dim)">Estimated wallet value</span><b id="balTotal">$0</b></div>
+      <div class="save-flag" id="saveFlag"></div>
+    </div>
+  </div>
+
+  <!-- SPECIALS -->
+  <div class="sec">
+    <div class="sh"><div class="st">Specials</div></div>
+
+    <!-- Check for new specials (AI-powered, uses your own API key) -->
+    <div class="panel" id="checkPanel">
+      <div class="detail-name" style="font-size:14px">🔎 Check for new specials</div>
+      <div class="detail-meta" style="margin-top:3px" id="checkSub">Searches the web for current Amex Offers, Chase Offers, Citi Merchant Offers, and BankAmeriDeals-style category bonuses on your 5 cards.</div>
+
+      <div id="keyBanner" style="margin-top:12px">
+        <div class="tip-box" style="margin-top:0">
+          <b>Connect your Anthropic API key</b> — this calls the Anthropic API with web search, straight from your browser, the same way the concierge in Van Dyke Travel works. Nothing routes through a server, and the key is stored only on this device. Get one at console.anthropic.com → API Keys.
+        </div>
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <input id="apiKeyInput" type="password" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="sk-ant-..." style="flex:1;padding:9px 10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:13px">
+          <button class="btn btn-primary" style="width:auto;padding:9px 16px" onclick="saveApiKey()">Save</button>
+        </div>
+      </div>
+
+      <div id="keyActive" style="display:none;margin-top:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:11px;color:var(--ink-faint)" id="lastChecked">Never checked yet</div>
+          <span style="font-size:10px;color:var(--ink-faint);text-decoration:underline;cursor:pointer" onclick="forgetApiKey()">forget key</span>
+        </div>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="checkForSpecials()" id="checkBtn">Check for latest specials</button>
+      </div>
+
+      <div id="checkResults" style="margin-top:10px"></div>
+    </div>
+
+    <!-- Quick links to each issuer's offer portal -->
+    <div class="panel" style="margin-top:8px">
+      <div class="detail-name" style="font-size:13px;margin-bottom:8px">Or check directly — these are personalized per account, so no search can see them for you</div>
+      <div class="link-row"><a href="https://global.americanexpress.com/offers" target="_blank">Amex Offers</a><span class="link-note">Amex Gold</span></div>
+      <div class="link-row"><a href="https://offers.chase.com" target="_blank">Chase Offers</a><span class="link-note">Sapphire Reserve · United Club</span></div>
+      <div class="link-row"><a href="https://online.citi.com" target="_blank">Citi Merchant Offers</a><span class="link-note">ThankYou Preferred</span></div>
+      <div class="link-row"><a href="https://www.bankofamerica.com" target="_blank">BankAmeriDeals</a><span class="link-note">Royal ONE</span></div>
+    </div>
+
+    <!-- Your saved specials -->
+    <div class="sh" style="margin-top:16px"><div class="st">Your saved specials</div></div>
+    <div id="promoList"></div>
+    <div class="addbtn-wrap">
+      <button class="btn btn-ghost" onclick="toggleForm()">＋ Add a promotion manually</button>
+    </div>
+    <div class="panel" id="promoForm" style="display:none;margin-top:10px">
+      <div class="form-row">
+        <label>Card</label>
+        <select id="pf-card"></select>
+      </div>
+      <div class="form-row">
+        <label>Category</label>
+        <select id="pf-cat"></select>
+      </div>
+      <div class="form-row">
+        <label>What's the bonus? (e.g. "5x points" or "+$50 statement credit")</label>
+        <input id="pf-bonus" placeholder="5x points on groceries">
+      </div>
+      <div class="form-2col">
+        <div class="form-row">
+          <label>Starts</label>
+          <input type="date" id="pf-start">
+        </div>
+        <div class="form-row">
+          <label>Ends</label>
+          <input type="date" id="pf-end">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Notes (paste what a screenshot said, activation steps, etc.)</label>
+        <textarea id="pf-note" rows="2" placeholder="Activate in app first. Cap $500 spend."></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="addPromo()">Save promotion</button>
+    </div>
+  </div>
+
+  <!-- REDEMPTION GUIDE -->
+  <div class="sec">
+    <div class="sh"><div class="st">Redeeming for your trips</div></div>
+    <div class="panel" style="padding:4px">
+      <details class="redeem-card" open>
+        <summary>Royal ONE Visa Signature <span style="color:var(--ink-faint);font-weight:400">1¢/pt</span></summary>
+        <div class="redeem-body">
+          Points only redeem across the <b>Royal Caribbean Group</b> — Royal Caribbean, Celebrity Cruises, Silversea — for cruise-fare discounts or onboard credit (dining, Wi-Fi, excursions). They don't transfer anywhere else, so this card is a specialist, not a hub.
+          <div class="trip-tag">🚢 Alaska · Celebrity Edge · Aug 2026</div>
+          <br><br>Put excursion pre-payments, onboard incidentals, and anything charged to the Celebrity Edge stateroom on this card — it's 3x on Royal Caribbean Group purchases, and the points redeem straight back into onboard credit for exactly this kind of cruise.
+        </div>
+      </details>
+      <details class="redeem-card">
+        <summary>Chase Sapphire Reserve <span style="color:var(--ink-faint);font-weight:400">~1.7–2.5¢/pt</span></summary>
+        <div class="redeem-body">
+          Ultimate Rewards transfer to 11+ airline/hotel partners, or book direct through Chase Travel where <b>Points Boost</b> can push value to ~2.5¢/pt on select flights and hotels.
+          <div class="trip-tag">🎰 Las Vegas · Jul 2026</div>
+          <div class="trip-tag">🏰 Danube River Cruise · Aug 2027</div>
+          <br><br>The river cruise isn't a Royal Caribbean Group sailing, so Royal ONE points can't touch it — this is the card for it. Book the cruise line and any pre/post Budapest–Vienna hotel nights through the Chase Travel portal for 8x, or transfer points to a partner airline for the flights over.
+        </div>
+      </details>
+      <details class="redeem-card">
+        <summary>Amex Gold (Rose Gold) <span style="color:var(--ink-faint);font-weight:400">~1.7¢/pt</span></summary>
+        <div class="redeem-body">
+          Membership Rewards transfer to 20+ airline/hotel partners at typically better value than Amex's own Pay-with-Points travel redemption — save transfers for a specific award flight or hotel night rather than cashing out early.
+          <div class="trip-tag">🎰 Las Vegas dinners</div>
+          <div class="trip-tag">🏰 Danube dining</div>
+          <br><br>This is the everyday-spend engine (groceries, restaurants) that funds transfers for the bigger trips — let balances build here and transfer only when you've picked the specific flight or hotel you want.
+        </div>
+      </details>
+      <details class="redeem-card">
+        <summary>United Club Infinite <span style="color:var(--ink-faint);font-weight:400">~1.3¢/mile</span></summary>
+        <div class="redeem-body">
+          MileagePlus miles are best for United or Star Alliance award flights — no blackout dates on some fares, and the lounge membership pays for itself if you're routing through United's hubs for the Danube trip (likely via a Star Alliance partner into Europe).
+        </div>
+      </details>
+      <details class="redeem-card">
+        <summary>Citi ThankYou Preferred <span style="color:var(--ink-faint);font-weight:400">~1¢/pt</span></summary>
+        <div class="redeem-body">
+          No annual fee, but this card's transfer ratio to airline/hotel partners is lower than premium Citi cards — treat points here as roughly 1¢ each toward gift cards or statement credit, and reserve it for the 2x entertainment category rather than trying to use it for big travel redemptions.
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="foot">
+    Balances and promotions are saved to this browser only (localStorage) — they won't sync across devices or to Eric until this is password-protected and moved to shared storage.<br>
+    Card details are general program terms as of Aug 2026 — always confirm current rates/caps on the issuer's site before a big purchase.
+  </div>
+
+</div>
+
+<script>
+const CARDS = [
+  {id:'amex', name:'Amex Gold', sub:'Rose Gold · Membership Rewards', af:'$325/yr', css:'c-amex', net:'amex', last4:'4471', ptValue:0.017,
+    rates:{groceries:4,gas:1,dining:4,flights:3,hotels:5,rc:2,rentalcars:2,othercruise:2,entertainment:1,other:1},
+    rateNotes:{groceries:'4x, capped $25k/yr',dining:'4x worldwide, capped $50k/yr',hotels:'5x prepaid via Amex Travel',flights:'3x via Amex Travel or direct',rc:'2x cruises via Amex Travel',rentalcars:'2x prepaid via Amex Travel',othercruise:'2x via Amex Travel'},
+    redemption:'Transfer to 20+ airline/hotel partners (best value), or Pay-with-Points on AmexTravel.com.',
+    protections:'Purchase protection, extended warranty, Uber Cash + Resy/Dunkin dining credits, Hertz Five Star status. No lounge access.'},
+  {id:'citi', name:'Citi ThankYou', sub:'Preferred · ThankYou Points', af:'$0/yr', css:'c-citi', net:'mc', last4:'2208', ptValue:0.01,
+    rates:{groceries:1,gas:1,dining:2,flights:1,hotels:1,rc:1,rentalcars:1,othercruise:1,entertainment:2,other:1},
+    rateNotes:{dining:'2x dining & entertainment',entertainment:'2x dining & entertainment'},
+    redemption:'~1¢/pt to gift cards, Amazon, or statement credit. Transfer partners exist but at a lower ratio than Citi’s premium cards.',
+    protections:'Extended warranty (+24mo), purchase protection, no annual fee.'},
+  {id:'csr', name:'Sapphire Reserve', sub:'Chase · Ultimate Rewards', af:'$795/yr', css:'c-csr', net:'visa', last4:'9013', ptValue:0.019,
+    rates:{groceries:1,gas:1,dining:3,flights:4,hotels:4,rc:1,rentalcars:1,othercruise:1,entertainment:1,other:1},
+    rateNotes:{dining:'3x worldwide',flights:'4x booked direct — or 8x through Chase Travel',hotels:'4x booked direct — or 8x through Chase Travel',rentalcars:'8x through Chase Travel',othercruise:'8x through Chase Travel (cruises count as Chase Travel)',rc:'8x if booked through Chase Travel'},
+    redemption:'Transfer to 11+ airline/hotel partners, or book via Chase Travel for 8x plus Points Boost (up to ~2.5¢/pt on select flights/hotels).',
+    protections:'Primary rental car CDW, trip cancellation/interruption, trip delay, baggage delay, Priority Pass + Sapphire Lounge network, $2,700+ in annual credits (dining, hotel, Lyft, StubHub, Apple).'},
+  {id:'royal', name:'Royal ONE', sub:'Visa Signature · Royal Caribbean Group', af:'$0/yr', css:'c-royal', net:'visa', last4:'5566', ptValue:0.01,
+    rates:{groceries:2,gas:2,dining:1,flights:1,hotels:1,rc:3,rentalcars:1,othercruise:0,entertainment:1,other:1},
+    rateNotes:{groceries:'2x groceries, gas & EV charging',gas:'2x groceries, gas & EV charging',rc:'3x on Royal Caribbean / Celebrity / Silversea purchases',othercruise:'Doesn’t earn or redeem outside Royal Caribbean Group'},
+    redemption:'1¢/pt starting at 5,000 pts, toward cruise discounts or onboard credit — Royal Caribbean, Celebrity, and Silversea only. Not transferable elsewhere.',
+    protections:'No foreign transaction fee, Visa Signature travel protections, priority boarding, $100 anniversary reward after $10k/yr spend, TSA PreCheck/Global Entry credit.'},
+  {id:'united', name:'United Club', sub:'Infinite · MileagePlus', af:'$695/yr', css:'c-united', net:'visa', last4:'3127', ptValue:0.013,
+    rates:{groceries:1,gas:1,dining:2,flights:2,hotels:2,rc:1,rentalcars:1,othercruise:1,entertainment:1,other:1},
+    rateNotes:{flights:'4x on United-specific purchases, 2x other travel',dining:'2x on travel & dining',hotels:'2x other travel'},
+    redemption:'MileagePlus miles for United / Star Alliance award flights — some fares with no blackout dates.',
+    protections:'United Club lounge access, free 1st & 2nd checked bags, primary rental CDW, Hertz President’s Circle, Global Entry/TSA credit, no foreign transaction fee.'}
+];
+
+const CATS = [
+  {id:'groceries', label:'Groceries', ic:'🛒'},
+  {id:'gas', label:'Gas / EV', ic:'⛽'},
+  {id:'dining', label:'Dining', ic:'🍽️'},
+  {id:'flights', label:'Flights', ic:'✈️'},
+  {id:'hotels', label:'Hotels', ic:'🏨'},
+  {id:'rc', label:'RC / Celebrity', ic:'🚢'},
+  {id:'rentalcars', label:'Rental Cars', ic:'🚗'},
+  {id:'othercruise', label:'Other Cruise', ic:'⚓'},
+  {id:'entertainment', label:'Entertainment', ic:'🎭'},
+  {id:'other', label:'Everything Else', ic:'💳'}
+];
+
+let selectedCard = 'amex';
+let selectedCat = null;
+
+// ---------- WALLET ----------
+function netMark(net){
+  if(net==='visa') return `<span class="net-mark net-visa">VISA</span>`;
+  if(net==='amex') return `<span class="net-mark net-amex">AMEX</span>`;
+  if(net==='mc') return `<span class="net-mc"><span></span><span></span></span>`;
+  return '';
+}
+function renderWallet(){
+  document.getElementById('wallet').innerHTML = CARDS.map(c=>
+    `<div class="chip ${c.css} ${c.id===selectedCard?'on':''}" onclick="selectCard('${c.id}')">
+      <div class="chip-top">
+        <div class="emv"></div>
+        <div class="chip-af-badge">${c.af}</div>
+      </div>
+      <div class="chip-mid">
+        <div class="chip-num">•••• ${c.last4}</div>
+        <div class="chip-name">${c.name}</div>
+        <div class="chip-sub">${c.sub}</div>
+      </div>
+      <div class="chip-bottom">
+        <div></div>
+        ${netMark(c.net)}
+      </div>
+    </div>`).join('');
+}
+function selectCard(id){ selectedCard=id; renderWallet(); renderDetail(); }
+function renderDetail(){
+  const c = CARDS.find(x=>x.id===selectedCard);
+  const rows = CATS.map(cat=>{
+    const r = c.rates[cat.id];
+    return `<div class="rate-cat">${cat.ic} ${cat.label}</div><div class="rate-val">${r===0?'—':r+'x'}</div>`;
+  }).join('');
+  document.getElementById('cardDetail').innerHTML = `
+    <div class="detail-name">${c.name}</div>
+    <div class="detail-meta">${c.sub} · ${c.af}</div>
+    <div class="rate-grid">${rows}</div>
+    <div class="detail-block"><b>Redeem:</b> ${c.redemption}</div>
+    <div class="detail-block"><b>Protections & perks:</b> ${c.protections}</div>
+  `;
+}
+
+// ---------- CATEGORY RECOMMENDER ----------
+function renderCatGrid(){
+  document.getElementById('catGrid').innerHTML = CATS.map(cat=>
+    `<div class="catbtn ${cat.id===selectedCat?'on':''}" onclick="pickCategory('${cat.id}')">
+      <span class="ic">${cat.ic}</span>${cat.label}
+    </div>`).join('');
+}
+function activePromosFor(cardId, catId){
+  const today = new Date().toISOString().slice(0,10);
+  return getPromos().filter(p=>p.card===cardId && p.cat===catId && p.start<=today && today<=p.end);
+}
+function pickCategory(catId){
+  selectedCat = catId;
+  renderCatGrid();
+  const cat = CATS.find(c=>c.id===catId);
+  const ranked = CARDS.map(c=>{
+    const promos = activePromosFor(c.id, catId);
+    return {card:c, rate:c.rates[catId], promos};
+  }).sort((a,b)=> b.rate - a.rate || (b.promos.length - a.promos.length));
+
+  document.getElementById('rankTitle').textContent = `Best for ${cat.label}`;
+  document.getElementById('rankList').innerHTML = ranked.map((r,i)=>{
+    const medal = ['🥇','🥈','🥉','',''][i] || '';
+    const note = r.card.rateNotes && r.card.rateNotes[catId] ? r.card.rateNotes[catId] : '';
+    const promoHtml = r.promos.map(p=>`<div class="promo-flag">🔥 ${p.bonus}</div>`).join('');
+    return `<div class="rank ${i===0?'first':''}">
+      <div class="rank-medal">${medal}</div>
+      <div class="rank-body">
+        <div class="rank-name">${r.card.name}</div>
+        ${note?`<div class="rank-note">${note}</div>`:''}
+        ${promoHtml}
+      </div>
+      <div style="text-align:right">
+        <div class="rank-rate">${r.rate===0?'—':r.rate+'x'}</div>
+        <div class="rank-val">~${(r.rate*r.card.ptValue*100).toFixed(1)}¢/$</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const tipMap = {
+    rc:'Charge onboard purchases and pre-cruise extras for the Alaska sailing here — Royal ONE points redeem straight back into onboard credit.',
+    othercruise:'The Danube river cruise isn’t a Royal Caribbean Group sailing, so route it through Sapphire Reserve or Amex Gold instead of Royal ONE.',
+    hotels:'Book through Chase Travel for the 8x rate, or direct for 4x plus full hotel-brand loyalty credit.',
+    flights:'Booking direct earns loyalty credit; booking via Chase Travel earns more points. Pick based on whether you need status.',
+    gas:'Royal ONE is the only card in the wallet that bonuses gas — worth a swipe here even outside cruise season.'
+  };
+  const tipBox = document.getElementById('rankTip');
+  if(tipMap[catId]){ tipBox.style.display='block'; tipBox.innerHTML = `<b>Tip —</b> ${tipMap[catId]}`; }
+  else tipBox.style.display='none';
+
+  document.getElementById('rankSection').style.display='block';
+  document.getElementById('rankSection').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ---------- BALANCES ----------
+function getBalances(){
+  try{ return JSON.parse(localStorage.getItem('vdp_balances')) || {}; }catch(e){ return {}; }
+}
+function saveBalances(b){
+  localStorage.setItem('vdp_balances', JSON.stringify(b));
+  const f=document.getElementById('saveFlag'); f.textContent='Saved ✓';
+  clearTimeout(window._sf); window._sf=setTimeout(()=>f.textContent='',1200);
+}
+function renderBalances(){
+  const bal = getBalances();
+  document.getElementById('balList').innerHTML = CARDS.map(c=>{
+    const v = bal[c.id]||0;
+    return `<div class="bal-row">
+      <div class="bal-dot" style="background:${dotColor(c.css)}"></div>
+      <div class="bal-name">${c.name}</div>
+      <input class="bal-input" type="number" min="0" step="1" value="${v}" onchange="updateBalance('${c.id}',this.value)">
+    </div>`;
+  }).join('');
+  updateTotal();
+}
+function dotColor(css){
+  return {c_amex:'#d9b06a',c_citi:'#1863b0',c_csr:'#2b3d73',c_royal:'#1f9490',c_united:'#0e4aa8'}[css.replace('-','_')] || '#888';
+}
+function updateBalance(id, val){
+  const bal = getBalances();
+  bal[id] = Math.max(0, parseInt(val)||0);
+  saveBalances(bal);
+  updateTotal();
+}
+function updateTotal(){
+  const bal = getBalances();
+  let total = 0;
+  CARDS.forEach(c=> total += (bal[c.id]||0) * c.ptValue);
+  document.getElementById('balTotal').textContent = '$' + total.toLocaleString(undefined,{maximumFractionDigits:0});
+}
+
+// ---------- PROMOTIONS ----------
+function getPromos(){
+  try{ return JSON.parse(localStorage.getItem('vdp_promos')) || []; }catch(e){ return []; }
+}
+function savePromos(list){ localStorage.setItem('vdp_promos', JSON.stringify(list)); }
+function promoStatus(p){
+  const today = new Date().toISOString().slice(0,10);
+  if(today < p.start) return 'upcoming';
+  if(today > p.end) return 'expired';
+  return 'active';
+}
+function renderPromos(){
+  const list = getPromos().slice().sort((a,b)=> a.start < b.start ? 1 : -1);
+  if(!list.length){ document.getElementById('promoList').innerHTML = `<div class="empty">No promotions saved yet. Add one below, or paste a screenshot of an offer into chat and I'll tell you what to enter.</div>`; return; }
+  document.getElementById('promoList').innerHTML = list.map(p=>{
+    const status = promoStatus(p);
+    const card = CARDS.find(c=>c.id===p.card);
+    const cat = CATS.find(c=>c.id===p.cat);
+    return `<div class="promo-item ${status==='active'?'active':''}">
+      <button class="promo-del" onclick="deletePromo('${p.id}')">✕</button>
+      <div class="promo-top">
+        <div>
+          <div class="promo-card">${card?card.name:p.card}</div>
+          <div class="promo-cat">${cat?cat.ic+' '+cat.label:p.cat}</div>
+        </div>
+        <div class="promo-status status-${status}">${status}</div>
+      </div>
+      <div class="promo-bonus">${p.bonus}</div>
+      <div class="promo-dates">${p.start} → ${p.end}</div>
+      ${p.note?`<div class="promo-note">${p.note}</div>`:''}
+    </div>`;
+  }).join('');
+}
+function deletePromo(id){
+  savePromos(getPromos().filter(p=>p.id!==id));
+  renderPromos();
+  if(selectedCat) pickCategory(selectedCat);
+}
+function toggleForm(){
+  const f = document.getElementById('promoForm');
+  f.style.display = f.style.display==='none' ? 'block' : 'none';
+  if(f.style.display==='block') f.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function addPromo(){
+  const card = document.getElementById('pf-card').value;
+  const cat = document.getElementById('pf-cat').value;
+  const bonus = document.getElementById('pf-bonus').value.trim();
+  const start = document.getElementById('pf-start').value;
+  const end = document.getElementById('pf-end').value;
+  const note = document.getElementById('pf-note').value.trim();
+  if(!bonus || !start || !end){ alert('Add the bonus description and both dates.'); return; }
+  const list = getPromos();
+  list.push({id:'p'+Date.now(), card, cat, bonus, start, end, note});
+  savePromos(list);
+  document.getElementById('pf-bonus').value='';
+  document.getElementById('pf-note').value='';
+  renderPromos();
+  toggleForm();
+  if(selectedCat) pickCategory(selectedCat);
+}
+function populateForm(){
+  document.getElementById('pf-card').innerHTML = CARDS.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+  document.getElementById('pf-cat').innerHTML = CATS.map(c=>`<option value="${c.id}">${c.ic} ${c.label}</option>`).join('');
+}
+
+// ---------- SPECIALS: AI-powered check ----------
+let apiKey = localStorage.getItem('vdp_api_key') || '';
+function refreshKeyUI(){
+  const has = !!apiKey;
+  document.getElementById('keyBanner').style.display = has ? 'none' : 'block';
+  document.getElementById('keyActive').style.display = has ? 'block' : 'none';
+  const last = localStorage.getItem('vdp_last_checked');
+  document.getElementById('lastChecked').textContent = last ? ('Last checked ' + new Date(last).toLocaleString()) : 'Never checked yet';
+}
+function saveApiKey(){
+  const v = document.getElementById('apiKeyInput').value.trim();
+  if(!v) return;
+  apiKey = v;
+  localStorage.setItem('vdp_api_key', v);
+  refreshKeyUI();
+}
+function forgetApiKey(){
+  apiKey='';
+  localStorage.removeItem('vdp_api_key');
+  document.getElementById('checkResults').innerHTML='';
+  refreshKeyUI();
+}
+async function checkForSpecials(){
+  const btn = document.getElementById('checkBtn');
+  const resultsEl = document.getElementById('checkResults');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span>Searching…';
+  resultsEl.innerHTML = '';
+  const cardList = CARDS.map(c=>`${c.name} (${c.sub}, ${c.af})`).join('; ');
+  const today = new Date().toISOString().slice(0,10);
+  const sys = `Today's date is ${today}. The user holds these 5 credit cards: ${cardList}. Search the web for any CURRENT, real, time-limited spending promotions, bonus categories, or elevated earn-rate offers relevant to these specific cards or their issuers (Amex, Citi, Chase, Bank of America / Royal Caribbean Group) — for example seasonal bonus categories, registration-required category boosts, or issuer-wide statement-credit promotions. Ignore new-cardmember welcome/signup bonuses, since the user already owns these cards. Respond with ONLY a JSON array (no markdown fences, no prose) of objects shaped like: {"card":"amex|citi|csr|royal|united","cat":"groceries|gas|dining|flights|hotels|rc|rentalcars|othercruise|entertainment|other","bonus":"short description e.g. 5x points","start":"YYYY-MM-DD","end":"YYYY-MM-DD","note":"one sentence with any activation requirement","source":"short source name"}. If you find nothing current and real, respond with exactly [].`;
+  try{
+    const resp = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1500,
+        system:sys,
+        messages:[{role:'user',content:'Find current promotions for these cards.'}],
+        tools:[{type:'web_search_20250305',name:'web_search'}]
+      })
+    });
+    if(!resp.ok){
+      const e = await resp.json().catch(()=>({}));
+      throw new Error((e.error && e.error.message) || ('API error ' + resp.status));
+    }
+    const data = await resp.json();
+    const textBlock = (data.content || []).filter(b=>b.type==='text').map(b=>b.text).join('\n');
+    const clean = textBlock.replace(/```json|```/g,'').trim();
+    let found = [];
+    try{ found = JSON.parse(clean); }catch(e){ found = []; }
+    localStorage.setItem('vdp_last_checked', new Date().toISOString());
+    renderFoundResults(found);
+  }catch(err){
+    resultsEl.innerHTML = `<div class="tip-box" style="border-color:var(--red)">⚠️ ${err.message || 'Something went wrong — check your API key and try again.'}</div>`;
+  }
+  btn.disabled = false;
+  btn.textContent = 'Check for latest specials';
+  refreshKeyUI();
+}
+function renderFoundResults(found){
+  const resultsEl = document.getElementById('checkResults');
+  if(!found.length){
+    resultsEl.innerHTML = `<div class="empty">No current promotions turned up. Try again in a few days, or check the issuer links below.</div>`;
+    return;
+  }
+  resultsEl.innerHTML = found.map((f,i)=>{
+    const card = CARDS.find(c=>c.id===f.card);
+    const cat = CATS.find(c=>c.id===f.cat);
+    return `<div class="found-item">
+      <div class="found-top">
+        <div>
+          <div class="found-card">${card?card.name:f.card}</div>
+          <div class="found-cat">${cat?cat.ic+' '+cat.label:f.cat}</div>
+        </div>
+      </div>
+      <div class="found-bonus">${f.bonus||''}</div>
+      <div class="found-dates">${f.start||'?'} → ${f.end||'?'}</div>
+      ${f.note?`<div class="found-note">${f.note}</div>`:''}
+      ${f.source?`<div class="found-src">Source: ${f.source}</div>`:''}
+      <button class="found-add" id="add-${i}" onclick="acceptFound(${i})">＋ Add to my specials</button>
+    </div>`;
+  }).join('');
+  window._foundCache = found;
+}
+function acceptFound(i){
+  const f = window._foundCache[i];
+  const list = getPromos();
+  list.push({id:'p'+Date.now(), card:f.card, cat:f.cat, bonus:f.bonus||'', start:f.start||new Date().toISOString().slice(0,10), end:f.end||new Date().toISOString().slice(0,10), note:[f.note,f.source?('Source: '+f.source):''].filter(Boolean).join(' — ')});
+  savePromos(list);
+  renderPromos();
+  if(selectedCat) pickCategory(selectedCat);
+  const btn = document.getElementById('add-'+i);
+  btn.disabled = true;
+  btn.textContent = '✓ Added';
+}
+
+function renderTicker(){
+  const items = CARDS.map(c=>{
+    let bestCat = 'other', bestRate = 0;
+    CATS.forEach(cat=>{ if(c.rates[cat.id] > bestRate){ bestRate = c.rates[cat.id]; bestCat = cat.id; } });
+    const cat = CATS.find(x=>x.id===bestCat);
+    return `<span class="ticker-item">${c.name} <b>${bestRate}x</b> ${cat.ic} ${cat.label}</span>`;
+  }).join('');
+  document.getElementById('tickerTrack').innerHTML = items + items; // duplicated for seamless loop
+}
+
+// ---------- INIT ----------
+renderTicker();
+renderWallet();
+renderDetail();
+renderCatGrid();
+renderBalances();
+renderPromos();
+populateForm();
+refreshKeyUI();
+
+// ---------- LOCK SCREEN ----------
+const PIN_HASH = '9989a37538faecc495bbe774b30fb447a1582b8f1bc14ac88dfd84996a7b799a';
+const PIN_LEN = 4;
+let lockEntry = '';
+
+async function sha256(str){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function renderLockDots(){
+  const dots = document.querySelectorAll('.lock-dot');
+  dots.forEach((d,i)=> d.className = 'lock-dot' + (i < lockEntry.length ? ' filled' : ''));
+}
+function lockPress(digit){
+  if(lockEntry.length >= PIN_LEN) return;
+  lockEntry += digit;
+  renderLockDots();
+  if(lockEntry.length === PIN_LEN) checkPin();
+}
+function lockClear(){ lockEntry=''; document.getElementById('lockErr').textContent=''; renderLockDots(); }
+function lockBack(){ lockEntry = lockEntry.slice(0,-1); renderLockDots(); }
+async function checkPin(){
+  const hash = await sha256(lockEntry);
+  if(hash === PIN_HASH){
+    localStorage.setItem('vdp_unlocked','1');
+    unlockApp();
+  } else {
+    document.getElementById('lockErr').textContent = 'Wrong PIN — try again';
+    document.querySelectorAll('.lock-dot').forEach(d=>d.classList.add('err'));
+    setTimeout(()=>{ lockEntry=''; renderLockDots(); }, 350);
+  }
+}
+function unlockApp(){
+  document.getElementById('lock').style.display='none';
+  document.body.classList.remove('locked');
+}
+document.addEventListener('keydown', e=>{
+  if(document.getElementById('lock').style.display==='none') return;
+  if(e.key>='0' && e.key<='9') lockPress(e.key);
+  if(e.key==='Backspace') lockBack();
+});
+if(localStorage.getItem('vdp_unlocked')==='1'){ unlockApp(); }
+else { document.body.classList.add('locked'); }
+</script>
+</body>
+</html>
