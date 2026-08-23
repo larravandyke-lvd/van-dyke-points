@@ -27,7 +27,7 @@ body{
     radial-gradient(ellipse 900px 500px at 50% -10%, rgba(201,162,75,.10), transparent 60%),
     repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0px, rgba(255,255,255,.018) 1px, transparent 1px, transparent 26px),
     repeating-linear-gradient(90deg, rgba(255,255,255,.014) 0px, rgba(255,255,255,.014) 1px, transparent 1px, transparent 26px);
-  color:var(--ink);font-family:Inter,-apple-system,sans-serif;min-height:100vh;padding-bottom:60px}
+  color:var(--ink);font-family:Inter,-apple-system,sans-serif;min-height:100vh;padding-bottom:88px}
 .app{max-width:720px;margin:0 auto;padding:18px 14px 40px}
 h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
 ::selection{background:var(--gold-soft)}
@@ -53,7 +53,10 @@ h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
 /* WALLET STRIP */
 .wallet{display:flex;gap:12px;overflow-x:auto;padding:8px 4px 16px;scroll-snap-type:x mandatory}
 .wallet::-webkit-scrollbar{display:none}
-.chip{flex:0 0 auto;width:172px;height:108px;border-radius:16px;padding:13px;cursor:pointer;position:relative;overflow:hidden;scroll-snap-align:start;transition:transform .15s,box-shadow .15s;border:2px solid transparent;box-shadow:0 6px 18px rgba(0,0,0,.35);display:flex;flex-direction:column;justify-content:space-between}
+.chip{flex:0 0 auto;width:172px;height:108px;border-radius:16px;padding:13px;cursor:pointer;position:relative;overflow:hidden;scroll-snap-align:start;transition:transform .15s,box-shadow .15s;border:2px solid transparent;box-shadow:0 6px 18px rgba(0,0,0,.35);display:flex;flex-direction:column;justify-content:space-between;background-color:var(--panel2)}
+.chip-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.1) 40%,rgba(0,0,0,.55) 100%);pointer-events:none}
+.chip-photo-btn{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;padding:0}
+.chip-photo-del{position:absolute;bottom:8px;right:8px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;padding:0}
 .chip:active{transform:scale(.97)}
 .chip.on{border-color:var(--gold);box-shadow:0 6px 22px rgba(201,162,75,.35)}
 /* embossed sheen */
@@ -128,7 +131,10 @@ h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
 .bal-row:last-child{border-bottom:none}
 .bal-info{flex:1;min-width:0}
 .bal-name{font-size:12.5px;font-weight:600}
+.bal-flex{font-size:9.5px;color:var(--teal);font-weight:600;margin-top:1px}
 .bal-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.bal-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.bal-worth{font-size:11px;font-weight:800;color:var(--gold)}
 .bal-updated{font-size:9.5px;color:var(--ink-faint);margin-top:2px}
 .bal-updated.stale{color:var(--amber);font-weight:700}
 .stale-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-right:4px;vertical-align:middle}
@@ -140,6 +146,18 @@ h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
 .bal-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
 .bal-total b{font-family:Fraunces,serif;font-size:20px;color:var(--gold)}
 .save-flag{font-size:10px;color:var(--green);text-align:right;margin-top:6px;height:12px}
+
+/* SYNC */
+.sync-off{display:flex;gap:8px}
+.sync-off .btn{flex:1}
+.sync-on{display:flex;justify-content:space-between;align-items:center}
+.sync-code{font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:var(--gold);letter-spacing:.03em}
+.sync-label{font-size:9.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.sync-actions{display:flex;gap:10px;align-items:center}
+.sync-icon-btn{font-size:11px;color:var(--teal);font-weight:700;cursor:pointer;background:none;border:none;padding:4px}
+.sync-status{font-size:9.5px;color:var(--ink-faint);margin-top:4px}
+.sync-join-row{display:flex;gap:6px;margin-top:10px}
+.sync-join-row input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;color:var(--ink);font-size:13px;font-family:'Courier New',monospace}
 
 /* PROMOS */
 .promo-item{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;position:relative}
@@ -179,6 +197,12 @@ h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
 .spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.25);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* CONCIERGE */
+.cc-msg{max-width:85%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.55;white-space:pre-wrap}
+.cc-mine{align-self:flex-end;background:var(--gold);color:#1b1207;border-bottom-right-radius:4px;font-weight:600}
+.cc-theirs{align-self:flex-start;background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-bottom-left-radius:4px}
+.cc-empty{font-size:12px;color:var(--ink-faint);text-align:center;padding:14px}
+
 /* FORM */
 .form-row{margin-bottom:10px}
 .form-row label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);display:block;margin-bottom:5px}
@@ -203,6 +227,15 @@ h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
 .redeem-link::after{content:'↗'}
 
 .foot{text-align:center;font-size:10.5px;color:var(--ink-faint);margin-top:30px;line-height:1.7;padding:0 10px}
+
+/* TAB BAR */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:500;display:flex;background:var(--panel);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,.3);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+.tabbtn{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-family:Inter,sans-serif;font-size:10px;font-weight:600;color:var(--ink-faint);cursor:pointer;border-radius:10px}
+.tabbtn-ic{font-size:19px;line-height:1}
+.tabbtn.on{color:var(--gold)}
+.tabbtn:active{background:var(--panel2)}
+.tabpanel{animation:tabFade .18s ease}
+@keyframes tabFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
 /* LOCK SCREEN */
 #lock{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px}
@@ -280,6 +313,10 @@ body.locked{overflow:hidden}
     <div class="ticker-track" id="tickerTrack"></div>
   </div>
 
+  
+  <!-- TAB: CARDS -->
+  <div class="tabpanel" id="tab-cards">
+
   <!-- WALLET -->
   <div class="wallet" id="wallet"></div>
 
@@ -303,12 +340,18 @@ body.locked{overflow:hidden}
   <!-- BALANCES -->
   <div class="sec">
     <div class="sh"><div class="st">Points balances</div><div class="st-sub">tap to edit</div></div>
+
     <div class="panel">
       <div id="balList"></div>
       <div class="bal-total"><span style="font-size:12px;color:var(--ink-dim)">Estimated wallet value</span><b id="balTotal">$0</b></div>
       <div class="save-flag" id="saveFlag"></div>
     </div>
   </div>
+
+  </div>
+
+  <!-- TAB: SPECIALS -->
+  <div class="tabpanel" id="tab-specials" style="display:none">
 
   <!-- SPECIALS -->
   <div class="sec">
@@ -386,6 +429,11 @@ body.locked{overflow:hidden}
     </div>
   </div>
 
+  </div>
+
+  <!-- TAB: REDEEM -->
+  <div class="tabpanel" id="tab-redeem" style="display:none">
+
   <!-- REDEMPTION GUIDE -->
   <div class="sec">
     <div class="sh"><div class="st">Redeeming for your trips</div></div>
@@ -432,6 +480,73 @@ body.locked{overflow:hidden}
     </div>
   </div>
 
+  
+  <!-- STAR ALLIANCE -->
+  <div class="sec">
+    <div class="sh"><div class="st">Star Alliance &amp; business class</div></div>
+    <div class="panel">
+      <div class="detail-block" style="margin-top:0;color:var(--ink-dim)">
+        United Club Infinite miles aren't just for United — MileagePlus is the currency for the whole <b>Star Alliance</b>, 25 airlines including Lufthansa, Austrian, SWISS, and Turkish. You can book any of them with United miles, and partner business-class awards to Europe have a fixed price, unlike United's own dynamically-priced metal.
+      </div>
+      <div class="rate-grid" style="margin-top:14px">
+        <div class="rate-cat">✈️ United (own metal)</div><div class="rate-val" style="font-size:11px">IAD hub · Polaris</div>
+        <div class="rate-cat">🇩🇪 Lufthansa</div><div class="rate-val" style="font-size:11px">FRA / MUC hubs</div>
+        <div class="rate-cat">🇦🇹 Austrian</div><div class="rate-val" style="font-size:11px">VIE hub</div>
+        <div class="rate-cat">🇨🇭 SWISS</div><div class="rate-val" style="font-size:11px">ZRH hub</div>
+        <div class="rate-cat">🇹🇷 Turkish</div><div class="rate-val" style="font-size:11px">IST hub</div>
+      </div>
+      <div class="tip-box" style="margin-top:14px">
+        <div class="tip-lbl">✈️ IAD → Budapest, PRG → IAD strategy</div>
+        <div class="tip-txt">
+          Neither leg has a nonstop from D.C. or to Prague, so this books as a Star Alliance connection through a European hub — most reliably Frankfurt or Munich on Lufthansa, or Vienna on Austrian (Vienna and Warsaw tend to have better business-class Saver availability than Frankfurt/Zurich, worth checking first). Since you're flying into Budapest and eventually home from Prague, this is an <b>open-jaw</b> — book it as one multi-city Star Alliance award in United's search tool rather than two separate one-ways.<br><br>
+          Partner business-class awards to Europe have historically priced around 80,000 miles one-way, with United's own Polaris Saver sometimes as low as 60,000–77,000 when available — but United's pricing is dynamic and does shift, so treat this as a ballpark, not a quote. Search opens roughly 330 days out, which for an Aug 2027 trip means Saver space starts appearing around September 2026 — that's when to start watching.<br><br>
+          <b>If the United Club balance falls short:</b> Chase Ultimate Rewards (Sapphire Reserve) transfers to MileagePlus at 1:1, instantly — the fastest way to top up a shortfall without waiting to earn more United miles directly.
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <a class="redeem-link" href="https://www.united.com/en/us/fly/mileageplus/redeem-miles.html" target="_blank">Search United award space</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <!-- TAB: CONCIERGE -->
+  <div class="tabpanel" id="tab-concierge" style="display:none">
+
+  <!-- CONCIERGE -->
+  <div class="sec">
+    <div class="sh"><div class="st">🧭 Redemption Concierge</div></div>
+    <div class="panel" id="concierge">
+      <div class="detail-meta" id="ccSub" style="margin-bottom:10px">Ask a real routing question — "best way to fly to Budapest" — and it'll weigh your actual point balances and transfer partners across all 5 cards.</div>
+
+      <div id="ccNoKey" style="display:none">
+        <div class="tip-box" style="margin-top:0">Connect your Anthropic API key above in <b>Specials → Check for new specials</b> first — the Concierge uses the same key and search, just aimed at redemption instead of earning.</div>
+      </div>
+
+      <div id="ccBody" style="display:none">
+        <div id="ccMsgs" style="display:flex;flex-direction:column;gap:8px;max-height:50vh;overflow-y:auto;margin-bottom:10px"></div>
+        <div style="display:flex;gap:6px">
+          <input id="ccInput" placeholder="I need to fly to Budapest…" style="flex:1;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:13px" onkeypress="if(event.key==='Enter'){event.preventDefault();sendConcierge();}">
+          <button class="btn btn-primary" style="width:auto;padding:0 18px" onclick="sendConcierge()">Ask</button>
+        </div>
+        <div style="text-align:right;margin-top:6px" id="ccClearWrap">
+          <span style="font-size:10px;color:var(--ink-faint);text-decoration:underline;cursor:pointer" onclick="clearConcierge()">Clear conversation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tabbar">
+    <button class="tabbtn on" id="tabbtn-cards" onclick="switchTab('cards')"><span class="tabbtn-ic">💳</span>Cards</button>
+    <button class="tabbtn" id="tabbtn-specials" onclick="switchTab('specials')"><span class="tabbtn-ic">🔥</span>Specials</button>
+    <button class="tabbtn" id="tabbtn-redeem" onclick="switchTab('redeem')"><span class="tabbtn-ic">🎯</span>Redeem</button>
+    <button class="tabbtn" id="tabbtn-concierge" onclick="switchTab('concierge')"><span class="tabbtn-ic">🧭</span>Concierge</button>
+  </div>
+
   <div class="foot">
     Balances and promotions are saved to this browser only (localStorage) — they won't sync across devices or to Eric until this is password-protected and moved to shared storage.<br>
     Card details are general program terms as of Aug 2026 — always confirm current rates/caps on the issuer's site before a big purchase.
@@ -441,28 +556,28 @@ body.locked{overflow:hidden}
 
 <script>
 const CARDS = [
-  {id:'amex', name:'Amex Gold', sub:'Rose Gold · Membership Rewards', af:'$325/yr', css:'c-amex', net:'amex', last4:'4471', login:'https://www.americanexpress.com/en-us/account/login', ptValue:0.017,
-    rates:{groceries:4,gas:1,dining:4,flights:3,hotels:5,rc:2,rentalcars:2,othercruise:2,entertainment:1,other:1},
-    rateNotes:{groceries:'4x, capped $25k/yr',dining:'4x worldwide, capped $50k/yr',hotels:'5x prepaid via Amex Travel',flights:'3x via Amex Travel or direct',rc:'2x cruises via Amex Travel',rentalcars:'2x prepaid via Amex Travel',othercruise:'2x via Amex Travel'},
+  {id:'amex', name:'Amex Gold', sub:'Rose Gold · Membership Rewards', af:'$325/yr', css:'c-amex', net:'amex', last4:'4471', login:'https://www.americanexpress.com/en-us/account/login', ptValue:0.017, flex:'Flexible — 20+ transfer partners',
+    rates:{groceries:4,gas:1,dining:4,flights:3,hotels:5,rc:2,rentalcars:2,othercruise:2,entertainment:1,pet:1,other:1},
+    rateNotes:{groceries:'4x, capped $25k/yr',dining:'4x worldwide, capped $50k/yr',hotels:'5x prepaid via Amex Travel',flights:'3x via Amex Travel or direct',rc:'2x cruises via Amex Travel',rentalcars:'2x prepaid via Amex Travel',othercruise:'2x via Amex Travel',pet:'1x at a vet/pet store — but 4x if rung up at a US supermarket instead'},
     redemption:'Transfer to 20+ airline/hotel partners (best value), or Pay-with-Points on AmexTravel.com.',
     protections:'Purchase protection, extended warranty, Uber Cash + Resy/Dunkin dining credits, Hertz Five Star status. No lounge access.'},
-  {id:'citi', name:'Citi ThankYou', sub:'Preferred · ThankYou Points', af:'$0/yr', css:'c-citi', net:'mc', last4:'2208', login:'https://online.citi.com', ptValue:0.01,
-    rates:{groceries:1,gas:1,dining:2,flights:1,hotels:1,rc:1,rentalcars:1,othercruise:1,entertainment:2,other:1},
+  {id:'citi', name:'Citi ThankYou', sub:'Preferred · ThankYou Points', af:'$0/yr', css:'c-citi', net:'mc', last4:'2208', login:'https://online.citi.com', ptValue:0.01, flex:'Flexible — lower-value transfers',
+    rates:{groceries:1,gas:1,dining:2,flights:1,hotels:1,rc:1,rentalcars:1,othercruise:1,entertainment:2,pet:1,other:1},
     rateNotes:{dining:'2x dining & entertainment',entertainment:'2x dining & entertainment'},
     redemption:'~1¢/pt to gift cards, Amazon, or statement credit. Transfer partners exist but at a lower ratio than Citi’s premium cards.',
     protections:'Extended warranty (+24mo), purchase protection, no annual fee.'},
-  {id:'csr', name:'Sapphire Reserve', sub:'Chase · Ultimate Rewards', af:'$795/yr', css:'c-csr', net:'visa', last4:'9013', login:'https://secure.chase.com', ptValue:0.019,
-    rates:{groceries:1,gas:1,dining:3,flights:4,hotels:4,rc:1,rentalcars:1,othercruise:1,entertainment:1,other:1},
+  {id:'csr', name:'Sapphire Reserve', sub:'Chase · Ultimate Rewards', af:'$795/yr', css:'c-csr', net:'visa', last4:'9013', login:'https://secure.chase.com', ptValue:0.019, flex:'Flexible — 11+ transfer partners',
+    rates:{groceries:1,gas:1,dining:3,flights:4,hotels:4,rc:1,rentalcars:1,othercruise:1,entertainment:1,pet:1,other:1},
     rateNotes:{dining:'3x worldwide',flights:'4x booked direct — or 8x through Chase Travel',hotels:'4x booked direct — or 8x through Chase Travel',rentalcars:'8x through Chase Travel',othercruise:'8x through Chase Travel (cruises count as Chase Travel)',rc:'8x if booked through Chase Travel'},
     redemption:'Transfer to 11+ airline/hotel partners, or book via Chase Travel for 8x plus Points Boost (up to ~2.5¢/pt on select flights/hotels).',
     protections:'Primary rental car CDW, trip cancellation/interruption, trip delay, baggage delay, Priority Pass + Sapphire Lounge network, $2,700+ in annual credits (dining, hotel, Lyft, StubHub, Apple).'},
-  {id:'royal', name:'Royal ONE', sub:'Visa Signature · Royal Caribbean Group', af:'$0/yr', css:'c-royal', net:'visa', last4:'5566', login:'https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go', ptValue:0.01,
-    rates:{groceries:2,gas:2,dining:1,flights:1,hotels:1,rc:3,rentalcars:1,othercruise:0,entertainment:1,other:1},
+  {id:'royal', name:'Royal ONE', sub:'Visa Signature · Royal Caribbean Group', af:'$0/yr', css:'c-royal', net:'visa', last4:'5566', login:'https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go', ptValue:0.01, flex:'Cruise credit only — RC Group',
+    rates:{groceries:2,gas:2,dining:1,flights:1,hotels:1,rc:3,rentalcars:1,othercruise:0,entertainment:1,pet:1,other:1},
     rateNotes:{groceries:'2x groceries, gas & EV charging',gas:'2x groceries, gas & EV charging',rc:'3x on Royal Caribbean / Celebrity / Silversea purchases',othercruise:'Doesn’t earn or redeem outside Royal Caribbean Group'},
     redemption:'1¢/pt starting at 5,000 pts, toward cruise discounts or onboard credit — Royal Caribbean, Celebrity, and Silversea only. Not transferable elsewhere.',
     protections:'No foreign transaction fee, Visa Signature travel protections, priority boarding, $100 anniversary reward after $10k/yr spend, TSA PreCheck/Global Entry credit.'},
-  {id:'united', name:'United Club', sub:'Infinite · MileagePlus', af:'$695/yr', css:'c-united', net:'visa', last4:'3127', login:'https://secure.chase.com', ptValue:0.013,
-    rates:{groceries:1,gas:1,dining:2,flights:2,hotels:2,rc:1,rentalcars:1,othercruise:1,entertainment:1,other:1},
+  {id:'united', name:'United Club', sub:'Infinite · MileagePlus', af:'$695/yr', css:'c-united', net:'visa', last4:'3127', login:'https://secure.chase.com', ptValue:0.013, flex:'Travel only — United/Star Alliance',
+    rates:{groceries:1,gas:1,dining:2,flights:2,hotels:2,rc:1,rentalcars:1,othercruise:1,entertainment:1,pet:1,other:1},
     rateNotes:{flights:'4x on United-specific purchases, 2x other travel',dining:'2x on travel & dining',hotels:'2x other travel'},
     redemption:'MileagePlus miles for United / Star Alliance award flights — some fares with no blackout dates.',
     protections:'United Club lounge access, free 1st & 2nd checked bags, primary rental CDW, Hertz President’s Circle, Global Entry/TSA credit, no foreign transaction fee.'}
@@ -478,6 +593,7 @@ const CATS = [
   {id:'rentalcars', label:'Rental Cars', ic:'🚗'},
   {id:'othercruise', label:'Other Cruise', ic:'⚓'},
   {id:'entertainment', label:'Entertainment', ic:'🎭'},
+  {id:'pet', label:'Pet Care', ic:'🐾'},
   {id:'other', label:'Everything Else', ic:'💳'}
 ];
 
@@ -491,9 +607,17 @@ function netMark(net){
   if(net==='mc') return `<span class="net-mc"><span></span><span></span></span>`;
   return '';
 }
+function getCardPhotos(){
+  try{ return JSON.parse(localStorage.getItem('vdp_card_photos')) || {}; }catch(e){ return {}; }
+}
+function saveCardPhotos(p){ localStorage.setItem('vdp_card_photos', JSON.stringify(p)); }
 function renderWallet(){
-  document.getElementById('wallet').innerHTML = CARDS.map(c=>
-    `<div class="chip ${c.css} ${c.id===selectedCard?'on':''}" onclick="selectCard('${c.id}')">
+  const photos = getCardPhotos();
+  document.getElementById('wallet').innerHTML = CARDS.map(c=>{
+    const photo = photos[c.id];
+    const bgStyle = photo ? `background-image:url(${photo});background-size:cover;background-position:center` : '';
+    return `<div class="chip ${photo?'':c.css} ${c.id===selectedCard?'on':''}" style="${bgStyle}" onclick="selectCard('${c.id}')">
+      ${photo ? '<div class="chip-shade"></div>' : ''}
       <div class="chip-top">
         <div class="emv"></div>
         <div class="chip-af-badge">${c.af}</div>
@@ -505,9 +629,43 @@ function renderWallet(){
       </div>
       <div class="chip-bottom">
         <div></div>
-        ${netMark(c.net)}
+        ${photo ? '' : netMark(c.net)}
       </div>
-    </div>`).join('');
+      <button class="chip-photo-btn" onclick="event.stopPropagation();document.getElementById('photoInput-${c.id}').click()">${photo?'↻':'📷'}</button>
+      ${photo ? `<button class="chip-photo-del" onclick="event.stopPropagation();removeCardPhoto('${c.id}')">✕</button>` : ''}
+      <input type="file" accept="image/*" id="photoInput-${c.id}" style="display:none" onchange="handleCardPhoto(event,'${c.id}')">
+    </div>`;
+  }).join('');
+}
+function handleCardPhoto(evt, cardId){
+  const file = evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+      const maxW = 440;
+      const scale = Math.min(1, maxW / img.width);
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+      const photos = getCardPhotos();
+      photos[cardId] = dataUrl;
+      saveCardPhotos(photos);
+      renderWallet();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function removeCardPhoto(cardId){
+  const photos = getCardPhotos();
+  delete photos[cardId];
+  saveCardPhotos(photos);
+  renderWallet();
 }
 function selectCard(id){ selectedCard=id; renderWallet(); renderDetail(); }
 function renderDetail(){
@@ -570,7 +728,8 @@ function pickCategory(catId){
     othercruise:'This bucket is for cruise lines outside Royal Caribbean Group (Viking, Uniworld, Princess, etc.) — none of your booked trips fall here right now, since Alaska and the Danube are both Celebrity.',
     hotels:'Book through Chase Travel for the 8x rate, or direct for 4x plus full hotel-brand loyalty credit.',
     flights:'Booking direct earns loyalty credit; booking via Chase Travel earns more points. Pick based on whether you need status.',
-    gas:'Royal ONE is the only card in the wallet that bonuses gas — worth a swipe here even outside cruise season.'
+    gas:'Royal ONE is the only card in the wallet that bonuses gas — worth a swipe here even outside cruise season.',
+    pet:'None of your 5 cards bonus pet food, meds, or vet visits specifically — it’s a flat 1x everywhere except one workaround: ring up pet food/supplements at a US supermarket instead of a pet store or Chewy-style retailer, and Amex Gold jumps to 4x since that’s a grocery purchase by merchant code, not a pet one.'
   };
   const tipBox = document.getElementById('rankTip');
   if(tipMap[catId]){ tipBox.style.display='block'; tipBox.innerHTML = `<b>Tip —</b> ${tipMap[catId]}`; }
@@ -611,14 +770,19 @@ function renderBalances(){
   document.getElementById('balList').innerHTML = CARDS.map(c=>{
     const v = bal[c.id]||0;
     const stale = daysSince(dates[c.id]) >= STALE_DAYS;
+    const worth = v * c.ptValue;
     return `<div class="bal-row">
       <div class="bal-dot" style="background:${dotColor(c.css)}"></div>
       <div class="bal-info">
         <div class="bal-name">${c.name}</div>
+        <div class="bal-flex">${c.flex}</div>
         <div class="bal-updated ${stale?'stale':''}">${stale?'<span class="stale-dot"></span>':''}${updatedLabel(dates[c.id])}${stale?' — check for an update':''}</div>
         <a class="bal-login" href="${c.login}" target="_blank">Log in to check</a>
       </div>
-      <input class="bal-input" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${v.toLocaleString()}" onfocus="this.value=${v}" onblur="this.value=(parseInt(this.value.replace(/[^0-9]/g,''))||0).toLocaleString()" onchange="updateBalance('${c.id}',this.value)">
+      <div class="bal-right">
+        <input class="bal-input" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${v.toLocaleString()}" onfocus="this.value=${v}" onblur="this.value=(parseInt(this.value.replace(/[^0-9]/g,''))||0).toLocaleString()" onchange="updateBalance('${c.id}',this.value)">
+        <div class="bal-worth">≈$${worth.toLocaleString(undefined,{maximumFractionDigits:0})}</div>
+      </div>
     </div>`;
   }).join('');
   updateTotal();
@@ -634,6 +798,7 @@ function updateBalance(id, val){
   dates[id] = new Date().toISOString();
   saveBalDates(dates);
   renderBalances();
+  syncPush();
 }
 function updateTotal(){
   const bal = getBalances();
@@ -715,6 +880,7 @@ function refreshKeyUI(){
   document.getElementById('keyActive').style.display = has ? 'block' : 'none';
   const last = localStorage.getItem('vdp_last_checked');
   document.getElementById('lastChecked').textContent = last ? ('Last checked ' + new Date(last).toLocaleString()) : 'Never checked yet';
+  renderConciergeGate();
 }
 function saveApiKey(){
   const v = document.getElementById('apiKeyInput').value.trim();
@@ -820,6 +986,104 @@ function renderTicker(){
   document.getElementById('tickerTrack').innerHTML = items + items; // duplicated for seamless loop
 }
 
+// ---------- CONCIERGE ----------
+function getConciergeHist(){
+  try{ return JSON.parse(localStorage.getItem('vdp_concierge_chat')) || []; }catch(e){ return []; }
+}
+function saveConciergeHist(h){ localStorage.setItem('vdp_concierge_chat', JSON.stringify(h)); }
+function renderConciergeGate(){
+  const has = !!apiKey;
+  document.getElementById('ccNoKey').style.display = has ? 'none' : 'block';
+  document.getElementById('ccBody').style.display = has ? 'block' : 'none';
+  if(has) renderConciergeMsgs();
+}
+function renderConciergeMsgs(){
+  const hist = getConciergeHist();
+  const wrap = document.getElementById('ccMsgs');
+  if(!hist.length){
+    wrap.innerHTML = `<div class="cc-empty">Ask about a specific flight, route, or redemption tradeoff — I'll factor in your saved balances and each card's transfer partners.</div>`;
+  } else {
+    wrap.innerHTML = hist.map(m=>`<div class="cc-msg ${m.role==='user'?'cc-mine':'cc-theirs'}">${escapeHtml(m.content)}</div>`).join('');
+  }
+  wrap.scrollTop = wrap.scrollHeight;
+}
+function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function clearConcierge(){
+  if(!getConciergeHist().length) return;
+  if(!confirm('Clear this conversation?')) return;
+  saveConciergeHist([]);
+  renderConciergeMsgs();
+}
+async function sendConcierge(){
+  const input = document.getElementById('ccInput');
+  const q = input.value.trim();
+  if(!q) return;
+  if(!apiKey){ renderConciergeGate(); return; }
+  const hist = getConciergeHist();
+  hist.push({role:'user', content:q});
+  input.value = '';
+  saveConciergeHist(hist);
+  renderConciergeMsgs();
+
+  const wrap = document.getElementById('ccMsgs');
+  const thinking = document.createElement('div');
+  thinking.className = 'cc-msg cc-theirs';
+  thinking.style.fontStyle = 'italic';
+  thinking.style.color = 'var(--ink-faint)';
+  thinking.textContent = 'Thinking…';
+  wrap.appendChild(thinking);
+  wrap.scrollTop = wrap.scrollHeight;
+
+  const bal = getBalances();
+  const balLines = CARDS.map(c => `${c.name}: ${(bal[c.id]||0).toLocaleString()} pts (~${c.ptValue}¢/pt transfer value)`).join('; ');
+  const today = new Date().toISOString().slice(0,10);
+  const sys = `Today is ${today}. The user is planning travel and wants redemption advice. Their 5 cards and current saved point balances: ${balLines}.
+Known transfer/redemption paths: Amex Membership Rewards (Amex Gold) transfers to 20+ airlines including ANA, Air France/KLM Flying Blue, British Airways, Virgin Atlantic, Delta. Chase Ultimate Rewards (Sapphire Reserve) transfers to 11+ partners including United, Air France/KLM, British Airways, Southwest, Virgin Atlantic, or books direct via Chase Travel at up to 8x with Points Boost. United Club Infinite earns United MileagePlus miles directly — best for United or Star Alliance flights (Lufthansa, Austrian, Swiss, etc.), no transfer needed. Citi ThankYou Preferred has a lower transfer ratio since it's not a premium Citi card — treat it as backup only. Royal ONE only redeems for Royal Caribbean Group cruise fare/onboard credit, never for flights.
+Known upcoming trips: Las Vegas Jul 2026; Alaska cruise on Celebrity Edge round-trip from Seattle, Aug 14-21 2026; Danube river cruise on Celebrity Compass, Budapest to Vilshofen, Aug 19-26 2027 (so a flight into Budapest is needed around Aug 18-19 2027, ideally with a flight home from Vilshofen/Passau/Munich area around Aug 26-27).
+Use web search for current realistic mileage costs and route options for whatever the user asks about. Give a specific, concrete recommendation: which card's points to use (or a mix), roughly how many points/miles needed, which alliance or partner airline, and whether their current balance covers it or they'd need to earn/transfer more. Keep it conversational, under 180 words, no markdown headers or bullet-heavy formatting — write it like a knowledgeable friend texting back.`;
+
+  try{
+    const resp = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:900,
+        system:sys,
+        messages:hist.map(m=>({role:m.role, content:m.content})),
+        tools:[{type:'web_search_20250305', name:'web_search'}]
+      })
+    });
+    if(!resp.ok){
+      const e = await resp.json().catch(()=>({}));
+      throw new Error((e.error && e.error.message) || ('API error ' + resp.status));
+    }
+    const data = await resp.json();
+    const txt = (data.content || []).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
+    hist.push({role:'assistant', content: txt || 'No response received.'});
+  }catch(err){
+    hist.push({role:'assistant', content: '⚠️ ' + (err.message || 'Something went wrong — check your API key and try again.')});
+  }
+  saveConciergeHist(hist);
+  renderConciergeMsgs();
+}
+
+// ---------- TABS ----------
+const TABS = ['cards','specials','redeem','concierge'];
+function switchTab(id){
+  TABS.forEach(t=>{
+    document.getElementById('tab-'+t).style.display = (t===id) ? 'block' : 'none';
+    document.getElementById('tabbtn-'+t).classList.toggle('on', t===id);
+  });
+  window.scrollTo({top:0, behavior:'instant'});
+  localStorage.setItem('vdp_last_tab', id);
+}
+
 // ---------- INIT ----------
 renderTicker();
 renderWallet();
@@ -829,6 +1093,7 @@ renderBalances();
 renderPromos();
 populateForm();
 refreshKeyUI();
+switchTab(localStorage.getItem('vdp_last_tab') || 'cards');
 
 // ---------- LOCK SCREEN ----------
 const PIN_HASH = '9989a37538faecc495bbe774b30fb447a1582b8f1bc14ac88dfd84996a7b799a';
