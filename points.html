@@ -35,7 +35,7 @@ h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
 ::selection{background:var(--gold-soft)}
 
 /* HEADER */
-.hdr{text-align:center;padding:14px 0 18px}
+.hdr{text-align:center;padding:14px 0 18px;position:relative}
 .seal{width:56px;height:56px;border-radius:50%;margin:0 auto 12px;position:relative;background:radial-gradient(circle at 35% 30%,#f3e2b3,#c9a24b 45%,#8a6a3f 85%);box-shadow:0 4px 16px rgba(201,162,75,.35), inset 0 0 0 1px rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center}
 .seal::before{content:'';position:absolute;inset:4px;border-radius:50%;border:1px solid rgba(18,20,31,.35)}
 .seal-mono{font-family:Fraunces,serif;font-weight:700;font-size:16px;color:#1b1207;letter-spacing:-.5px}
@@ -288,6 +288,7 @@ body.locked{overflow:hidden}
 <div class="app">
 
   <div class="hdr">
+    <a href="https://portals-gateway.vercel.app" style="position:absolute;top:14px;left:14px;font-size:11px;font-weight:700;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:3px" title="Back to Portals Homepage">🔗 Portals Homepage</a>
     <div class="seal">
       <svg viewBox="0 0 64 64" width="56" height="56">
         <defs>
