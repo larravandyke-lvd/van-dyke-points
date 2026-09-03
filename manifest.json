@@ -1,0 +1,13 @@
+{
+  "name": "Van Dyke Points",
+  "short_name": "Points",
+  "description": "Rewards Portal — cards, balances, specials, redemption strategy.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1b1207",
+  "theme_color": "#c9a24b",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
