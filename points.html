@@ -541,28 +541,30 @@ body.locked{overflow:hidden}
   <div class="sec">
     <div class="sh"><div class="st">🧭 Redemption Concierge</div></div>
     <div class="panel" id="concierge">
-      <div class="detail-meta" id="ccSub" style="margin-bottom:10px">Ask a real routing question — "best way to fly to Budapest" — and it'll weigh your actual point balances and transfer partners across all 5 cards.</div>
+
+      <div id="ccBody" style="display:none">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:6px">ASK A QUESTION</div>
+        <div style="display:flex;gap:6px">
+          <input id="ccInput" placeholder="e.g. best way to fly to Budapest…" style="flex:1;min-width:0;padding:13px 12px;border-radius:10px;border:1.5px solid var(--gold);background:var(--bg);color:var(--ink);font-size:16px" onkeypress="if(event.key==='Enter'){event.preventDefault();sendConcierge();}">
+          <button class="btn btn-primary" style="width:auto;padding:0 20px;font-size:15px" onclick="sendConcierge()">Ask</button>
+        </div>
+        <div class="detail-meta" id="ccSub" style="margin:8px 0 12px">It weighs your actual point balances and transfer partners across all 5 cards.</div>
+        <div id="ccMsgs" style="display:flex;flex-direction:column;gap:8px;max-height:60vh;overflow-y:auto;margin-bottom:6px"></div>
+        <div style="text-align:right;margin-top:6px" id="ccClearWrap">
+          <span style="font-size:11px;color:var(--ink-faint);text-decoration:underline;cursor:pointer" onclick="clearConcierge()">Clear conversation</span>
+        </div>
+      </div>
 
       <div id="ccNoKey" style="display:none">
         <div class="tip-box" style="margin-top:0">
-          <b>Connect your Anthropic API key</b> — this calls the Anthropic API with web search, straight from your browser. Nothing routes through a server, and the key is stored only on this device. Get one at console.anthropic.com → API Keys. (Same key as Specials — enter it once here or there, either works.)
+          <b>Connect your Anthropic API key to use the Concierge</b> — this calls the Anthropic API with web search, straight from your browser. Nothing routes through a server, and the key is stored only on this device. Get one at console.anthropic.com → API Keys. (Same key as Specials — enter it once here or there, either works.)
         </div>
         <div style="display:flex;gap:6px;margin-top:8px">
-          <input id="ccApiKeyInput" type="password" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="sk-ant-..." style="flex:1;padding:9px 10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:13px" onkeypress="if(event.key==='Enter'){event.preventDefault();saveApiKeyFromConcierge();}">
+          <input id="ccApiKeyInput" type="password" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="sk-ant-..." style="flex:1;min-width:0;padding:11px 10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:16px" onkeypress="if(event.key==='Enter'){event.preventDefault();saveApiKeyFromConcierge();}">
           <button class="btn btn-primary" style="width:auto;padding:9px 16px" onclick="saveApiKeyFromConcierge()">Save</button>
         </div>
       </div>
 
-      <div id="ccBody" style="display:none">
-        <div id="ccMsgs" style="display:flex;flex-direction:column;gap:8px;max-height:50vh;overflow-y:auto;margin-bottom:10px"></div>
-        <div style="display:flex;gap:6px">
-          <input id="ccInput" placeholder="I need to fly to Budapest…" style="flex:1;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:13px" onkeypress="if(event.key==='Enter'){event.preventDefault();sendConcierge();}">
-          <button class="btn btn-primary" style="width:auto;padding:0 18px" onclick="sendConcierge()">Ask</button>
-        </div>
-        <div style="text-align:right;margin-top:6px" id="ccClearWrap">
-          <span style="font-size:10px;color:var(--ink-faint);text-decoration:underline;cursor:pointer" onclick="clearConcierge()">Clear conversation</span>
-        </div>
-      </div>
     </div>
   </div>
 
