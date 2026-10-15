@@ -418,6 +418,13 @@ body.locked{overflow:hidden}
     </div>
     <div class="panel" id="promoForm" style="display:none;margin-top:10px">
       <div class="form-row">
+        <label>Type</label>
+        <select id="pf-type">
+          <option value="earn">Earn more by spending $</option>
+          <option value="redeem">Discount to use my rewards</option>
+        </select>
+      </div>
+      <div class="form-row">
         <label>Card</label>
         <select id="pf-card"></select>
       </div>
@@ -724,7 +731,7 @@ function renderCatGrid(){
 }
 function activePromosFor(cardId, catId){
   const today = new Date().toISOString().slice(0,10);
-  return getPromos().filter(p=>p.card===cardId && p.cat===catId && p.start<=today && today<=p.end);
+  return getPromos().filter(p=>p.type!=='redeem' && p.card===cardId && p.cat===catId && p.start<=today && today<=p.end);
 }
 function pickCategory(catId){
   selectedCat = catId;
@@ -874,27 +881,33 @@ function promoStatus(p){
   if(today > p.end) return 'expired';
   return 'active';
 }
-function renderPromos(){
-  const list = getPromos().slice().sort((a,b)=> a.start < b.start ? 1 : -1);
-  if(!list.length){ document.getElementById('promoList').innerHTML = `<div class="empty">No promotions saved yet. Add one below, or paste a screenshot of an offer into chat and I'll tell you what to enter.</div>`; return; }
-  document.getElementById('promoList').innerHTML = list.map(p=>{
-    const status = promoStatus(p);
-    const card = CARDS.find(c=>c.id===p.card);
-    const cat = CATS.find(c=>c.id===p.cat);
-    return `<div class="promo-item ${status==='active'?'active':''}">
-      <button class="promo-del" onclick="deletePromo('${p.id}')">✕</button>
+function promoCardHtml(p){
+  const status = promoStatus(p);
+  const card = CARDS.find(c=>c.id===p.card);
+  const cat = CATS.find(c=>c.id===p.cat);
+  return `<div class="promo-item ${status==='active'?'active':''}">
+      <button class="promo-del" onclick="deletePromo('${p.id}')">\u2715</button>
       <div class="promo-top">
         <div>
           <div class="promo-card">${card?card.name:p.card}</div>
-          <div class="promo-cat">${cat?cat.ic+' '+cat.label:p.cat}</div>
+          <div class="promo-cat">${cat?cat.ic+' '+cat.label:(p.cat||'')}</div>
         </div>
         <div class="promo-status status-${status}">${status}</div>
       </div>
       <div class="promo-bonus">${p.bonus}</div>
-      <div class="promo-dates">${p.start} → ${p.end}</div>
+      <div class="promo-dates">${p.start} \u2192 ${p.end}</div>
       ${p.note?`<div class="promo-note">${p.note}</div>`:''}
     </div>`;
-  }).join('');
+}
+function renderPromos(){
+  const all = getPromos().slice().sort((a,b)=> a.start < b.start ? 1 : -1);
+  const earn = all.filter(p=>p.type!=='redeem');
+  const redeem = all.filter(p=>p.type==='redeem');
+  const section = (title, sub, list, emptyMsg) => `<div class="sh" style="margin-top:12px"><div class="st">${title}</div><div class="st-sub">${sub}</div></div>` +
+    (list.length ? list.map(promoCardHtml).join('') : `<div class="empty">${emptyMsg}</div>`);
+  document.getElementById('promoList').innerHTML =
+    section('\ud83d\udcb3 Earn more by spending', 'bonus points or cash back when you spend $', earn, 'No earning offers saved yet.') +
+    section('\ud83c\udf9f\ufe0f Discounts to use your rewards', 'transfer bonuses and discounted redemptions', redeem, 'No redemption discounts saved yet.');
 }
 function deletePromo(id){
   savePromos(getPromos().filter(p=>p.id!==id));
@@ -907,6 +920,7 @@ function toggleForm(){
   if(f.style.display==='block') f.scrollIntoView({behavior:'smooth',block:'center'});
 }
 function addPromo(){
+  const type = document.getElementById('pf-type').value;
   const card = document.getElementById('pf-card').value;
   const cat = document.getElementById('pf-cat').value;
   const bonus = document.getElementById('pf-bonus').value.trim();
@@ -915,7 +929,7 @@ function addPromo(){
   const note = document.getElementById('pf-note').value.trim();
   if(!bonus || !start || !end){ alert('Add the bonus description and both dates.'); return; }
   const list = getPromos();
-  list.push({id:'p'+Date.now(), card, cat, bonus, start, end, note});
+  list.push({id:'p'+Date.now(), type, card, cat, bonus, start, end, note});
   savePromos(list);
   document.getElementById('pf-bonus').value='';
   document.getElementById('pf-note').value='';
@@ -959,7 +973,7 @@ async function checkForSpecials(){
   resultsEl.innerHTML = '';
   const cardList = CARDS.map(c=>`${c.name} (${c.sub}, ${c.af})`).join('; ');
   const today = new Date().toISOString().slice(0,10);
-  const sys = `Today's date is ${today}. The user holds these 5 credit cards: ${cardList}. Search the web for any CURRENT, real, time-limited spending promotions, bonus categories, or elevated earn-rate offers relevant to these specific cards or their issuers (Amex, Citi, Chase, Bank of America / Royal Caribbean Group) — for example seasonal bonus categories, registration-required category boosts, or issuer-wide statement-credit promotions. Ignore new-cardmember welcome/signup bonuses, since the user already owns these cards. Respond with ONLY a JSON array (no markdown fences, no prose) of objects shaped like: {"card":"amex|citi|csr|royal|united","cat":"groceries|gas|dining|flights|hotels|rc|rentalcars|othercruise|entertainment|other","bonus":"short description e.g. 5x points","start":"YYYY-MM-DD","end":"YYYY-MM-DD","note":"one sentence with any activation requirement","source":"short source name"}. If you find nothing current and real, respond with exactly [].`;
+  const sys = `Today's date is ${today}. The user holds these 5 credit cards: ${cardList}. Search the web for any CURRENT, real, time-limited spending promotions, bonus categories, or elevated earn-rate offers relevant to these specific cards or their issuers (Amex, Citi, Chase, Bank of America / Royal Caribbean Group) — for example seasonal bonus categories, registration-required category boosts, or issuer-wide statement-credit promotions. Ignore new-cardmember welcome/signup bonuses, since the user already owns these cards. Classify every offer with a type: "earn" = rewards earned by SPENDING money (bonus categories, elevated earn rates, merchant offers, spend-and-get-credit promos); "redeem" = discounted offers to USE rewards already earned (airline or hotel transfer bonuses, Points Boost or other discounted Chase/Amex travel redemptions, cruise or onboard-credit discounts for Royal ONE points, discounted award fares). For redeem offers, cat is the kind of travel the discount applies to. Respond with ONLY a JSON array (no markdown fences, no prose) of objects shaped like: {"type":"earn|redeem","card":"amex|citi|csr|royal|united","cat":"groceries|gas|dining|flights|hotels|rc|rentalcars|othercruise|entertainment|other","bonus":"short description e.g. 5x points","start":"YYYY-MM-DD","end":"YYYY-MM-DD","note":"one sentence with any activation requirement","source":"short source name"}. If you find nothing current and real, respond with exactly [].`;
   try{
     const resp = await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
@@ -1008,16 +1022,10 @@ async function checkForSpecials(){
   btn.textContent = 'Check for latest specials';
   refreshKeyUI();
 }
-function renderFoundResults(found){
-  const resultsEl = document.getElementById('checkResults');
-  if(!found.length){
-    resultsEl.innerHTML = `<div class="empty">No current promotions turned up. Try again in a few days, or check the issuer links below.</div>`;
-    return;
-  }
-  resultsEl.innerHTML = found.map((f,i)=>{
-    const card = CARDS.find(c=>c.id===f.card);
-    const cat = CATS.find(c=>c.id===f.cat);
-    return `<div class="found-item">
+function foundItemHtml(f,i){
+  const card = CARDS.find(c=>c.id===f.card);
+  const cat = CATS.find(c=>c.id===f.cat);
+  return `<div class="found-item">
       <div class="found-top">
         <div>
           <div class="found-card">${card?card.name:f.card}</div>
@@ -1025,18 +1033,27 @@ function renderFoundResults(found){
         </div>
       </div>
       <div class="found-bonus">${f.bonus||''}</div>
-      <div class="found-dates">${f.start||'?'} → ${f.end||'?'}</div>
+      <div class="found-dates">${f.start||'?'} \u2192 ${f.end||'?'}</div>
       ${f.note?`<div class="found-note">${f.note}</div>`:''}
       ${f.source?`<div class="found-src">Source: ${f.source}</div>`:''}
-      <button class="found-add" id="add-${i}" onclick="acceptFound(${i})">＋ Add to my specials</button>
+      <button class="found-add" id="add-${i}" onclick="acceptFound(${i})">\uff0b Add to my specials</button>
     </div>`;
-  }).join('');
+}
+function renderFoundResults(found){
+  const resultsEl = document.getElementById('checkResults');
+  if(!found.length){
+    resultsEl.innerHTML = `<div class="empty">No current promotions turned up. Try again in a few days, or check the issuer links below.</div>`;
+    return;
+  }
+  const grp = (type) => found.map((f,i)=>({f,i})).filter(x=>(x.f.type==='redeem')===(type==='redeem'));
+  const block = (title, items) => items.length ? `<div class="sh" style="margin-top:12px"><div class="st">${title}</div></div>` + items.map(x=>foundItemHtml(x.f,x.i)).join('') : '';
+  resultsEl.innerHTML = block('\ud83d\udcb3 Earn more by spending', grp('earn')) + block('\ud83c\udf9f\ufe0f Discounts to use your rewards', grp('redeem'));
   window._foundCache = found;
 }
 function acceptFound(i){
   const f = window._foundCache[i];
   const list = getPromos();
-  list.push({id:'p'+Date.now(), card:f.card, cat:f.cat, bonus:f.bonus||'', start:f.start||new Date().toISOString().slice(0,10), end:f.end||new Date().toISOString().slice(0,10), note:[f.note,f.source?('Source: '+f.source):''].filter(Boolean).join(' — ')});
+  list.push({id:'p'+Date.now(), type:(f.type==='redeem'?'redeem':'earn'), card:f.card, cat:f.cat, bonus:f.bonus||'', start:f.start||new Date().toISOString().slice(0,10), end:f.end||new Date().toISOString().slice(0,10), note:[f.note,f.source?('Source: '+f.source):''].filter(Boolean).join(' — ')});
   savePromos(list);
   renderPromos();
   if(selectedCat) pickCategory(selectedCat);
