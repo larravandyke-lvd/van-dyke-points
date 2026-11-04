@@ -45,6 +45,12 @@ h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif}
 .hdr-rule{width:64px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto 0}
 
 /* TICKER */
+/* Concierge: compact header so the question box is right at the top */
+.app.cc-mode .seal,.app.cc-mode .hdr-eyebrow,.app.cc-mode .hdr p,.app.cc-mode .hdr-rule,.app.cc-mode .ticker{display:none}
+.app.cc-mode .hdr{padding:12px 0 6px}
+.app.cc-mode .hdr h1{font-size:20px;margin-top:0}
+.app.cc-mode .hdr a{top:50%!important;transform:translateY(-50%)}
+.cc-askbar{position:sticky;top:0;z-index:400;background:var(--panel);padding:8px 0 10px;margin:0 0 4px}
 .ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel);overflow:hidden;white-space:nowrap;margin-bottom:18px}
 .ticker-track{display:inline-flex;width:max-content;padding:8px 0;animation:tickerScroll 34s linear infinite}
 .ticker-item{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--ink-dim);padding:0 20px;border-right:1px solid var(--line)}
@@ -328,29 +334,6 @@ body.locked{overflow:hidden}
     <div class="panel" id="cardDetail"></div>
   </div>
 
-  <!-- CATEGORY RECOMMENDER -->
-  <div class="sec">
-    <div class="sh"><div class="st">What are you buying?</div></div>
-    <div class="catgrid" id="catGrid"></div>
-  </div>
-
-  <div class="sec" id="rankSection" style="display:none">
-    <div class="sh"><div class="st" id="rankTitle">Best card</div></div>
-    <div id="rankList"></div>
-    <div class="tip-box" id="rankTip" style="display:none"></div>
-  </div>
-
-  <!-- BALANCES -->
-  <div class="sec">
-    <div class="sh"><div class="st">Points balances</div><div class="st-sub">tap to edit</div></div>
-
-    <div class="panel">
-      <div id="balList"></div>
-      <div class="bal-total"><span style="font-size:12px;color:var(--ink-dim)">Estimated wallet value</span><b id="balTotal">$0</b></div>
-      <div class="save-flag" id="saveFlag"></div>
-    </div>
-  </div>
-
   <!-- SYNC -->
   <div class="sec">
     <div class="sh"><div class="st">🔄 Sync with Eric</div></div>
@@ -363,6 +346,39 @@ body.locked{overflow:hidden}
       <button class="btn btn-primary" onclick="saveSyncSetup()">Save &amp; connect</button>
       <div id="sync-status-txt" style="font-size:11px;color:var(--ink-faint);margin-top:10px">Sync not set up</div>
       <div class="detail-meta" style="margin-top:10px;font-size:10.5px">If you're already using this Firebase project for Van Dyke Travel, the same config works here too — this app stores its data under a separate document, so it won't collide with the travel app's sync.</div>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- TAB: BUY -->
+  <div class="tabpanel" id="tab-buy" style="display:none">
+
+  <!-- CATEGORY RECOMMENDER -->
+  <div class="sec">
+    <div class="sh"><div class="st">What are you buying?</div></div>
+    <div class="catgrid" id="catGrid"></div>
+  </div>
+
+  <div class="sec" id="rankSection" style="display:none">
+    <div class="sh"><div class="st" id="rankTitle">Best card</div></div>
+    <div id="rankList"></div>
+    <div class="tip-box" id="rankTip" style="display:none"></div>
+  </div>
+
+  </div>
+
+  <!-- TAB: BALANCES -->
+  <div class="tabpanel" id="tab-balances" style="display:none">
+
+  <!-- BALANCES -->
+  <div class="sec">
+    <div class="sh"><div class="st">Points balances</div><div class="st-sub">tap to edit</div></div>
+
+    <div class="panel">
+      <div id="balList"></div>
+      <div class="bal-total"><span style="font-size:12px;color:var(--ink-dim)">Estimated wallet value</span><b id="balTotal">$0</b></div>
+      <div class="save-flag" id="saveFlag"></div>
     </div>
   </div>
 
@@ -543,22 +559,32 @@ body.locked{overflow:hidden}
   <div class="sec">
     <div class="sh"><div class="st">🧭 Redemption Concierge</div></div>
     <div class="panel" id="concierge">
-      <div class="detail-meta" id="ccSub" style="margin-bottom:10px">Ask a real routing question — "best way to fly to Budapest" — and it'll weigh your actual point balances and transfer partners across all 5 cards.</div>
-
-      <div id="ccNoKey" style="display:none">
-        <div class="tip-box" style="margin-top:0">Connect your Anthropic API key above in <b>Specials → Check for new specials</b> first — the Concierge uses the same key and search, just aimed at redemption instead of earning.</div>
-      </div>
 
       <div id="ccBody" style="display:none">
-        <div id="ccMsgs" style="display:flex;flex-direction:column;gap:8px;max-height:50vh;overflow-y:auto;margin-bottom:10px"></div>
+        <div class="cc-askbar">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:6px">ASK A QUESTION</div>
         <div style="display:flex;gap:6px">
-          <input id="ccInput" placeholder="I need to fly to Budapest…" style="flex:1;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:13px" onkeypress="if(event.key==='Enter'){event.preventDefault();sendConcierge();}">
-          <button class="btn btn-primary" style="width:auto;padding:0 18px" onclick="sendConcierge()">Ask</button>
+          <input id="ccInput" placeholder="e.g. best way to fly to Budapest…" style="flex:1;min-width:0;padding:13px 12px;border-radius:10px;border:1.5px solid var(--gold);background:var(--bg);color:var(--ink);font-size:16px" onkeypress="if(event.key==='Enter'){event.preventDefault();sendConcierge();}">
+          <button class="btn btn-primary" style="width:auto;padding:0 20px;font-size:15px" onclick="sendConcierge()">Ask</button>
         </div>
+        </div>
+        <div class="detail-meta" id="ccSub" style="margin:8px 0 12px">It weighs your actual point balances and transfer partners across all 5 cards.</div>
+        <div id="ccMsgs" style="display:flex;flex-direction:column;gap:8px;max-height:60vh;overflow-y:auto;margin-bottom:6px"></div>
         <div style="text-align:right;margin-top:6px" id="ccClearWrap">
-          <span style="font-size:10px;color:var(--ink-faint);text-decoration:underline;cursor:pointer" onclick="clearConcierge()">Clear conversation</span>
+          <span style="font-size:11px;color:var(--ink-faint);text-decoration:underline;cursor:pointer" onclick="clearConcierge()">Clear conversation</span>
         </div>
       </div>
+
+      <div id="ccNoKey" style="display:none">
+        <div class="tip-box" style="margin-top:0">
+          <b>Connect your Anthropic API key to use the Concierge</b> — this calls the Anthropic API with web search, straight from your browser. Nothing routes through a server, and the key is stored only on this device. Get one at console.anthropic.com → API Keys. (Same key as Specials — enter it once here or there, either works.)
+        </div>
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <input id="ccApiKeyInput" type="password" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="sk-ant-..." style="flex:1;min-width:0;padding:11px 10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:16px" onkeypress="if(event.key==='Enter'){event.preventDefault();saveApiKeyFromConcierge();}">
+          <button class="btn btn-primary" style="width:auto;padding:9px 16px" onclick="saveApiKeyFromConcierge()">Save</button>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -567,6 +593,8 @@ body.locked{overflow:hidden}
   <!-- TAB BAR -->
   <div class="tabbar">
     <button class="tabbtn on" id="tabbtn-cards" onclick="switchTab('cards')"><span class="tabbtn-ic">💳</span>Cards</button>
+    <button class="tabbtn" id="tabbtn-buy" onclick="switchTab('buy')"><span class="tabbtn-ic">🛒</span>Buy</button>
+    <button class="tabbtn" id="tabbtn-balances" onclick="switchTab('balances')"><span class="tabbtn-ic">🔢</span>Balances</button>
     <button class="tabbtn" id="tabbtn-specials" onclick="switchTab('specials')"><span class="tabbtn-ic">🔥</span>Specials</button>
     <button class="tabbtn" id="tabbtn-redeem" onclick="switchTab('redeem')"><span class="tabbtn-ic">🎯</span>Redeem</button>
     <button class="tabbtn" id="tabbtn-concierge" onclick="switchTab('concierge')"><span class="tabbtn-ic">🧭</span>Concierge</button>
@@ -959,10 +987,19 @@ function saveApiKey(){
   localStorage.setItem('vdp_api_key', v);
   refreshKeyUI();
 }
+function saveApiKeyFromConcierge(){
+  const v = document.getElementById('ccApiKeyInput').value.trim();
+  if(!v) return;
+  apiKey = v;
+  localStorage.setItem('vdp_api_key', v);
+  refreshKeyUI();
+}
 function forgetApiKey(){
   apiKey='';
   localStorage.removeItem('vdp_api_key');
   document.getElementById('checkResults').innerHTML='';
+  const ccInput = document.getElementById('ccApiKeyInput');
+  if(ccInput) ccInput.value='';
   refreshKeyUI();
 }
 async function checkForSpecials(){
@@ -1259,12 +1296,13 @@ Use web search for current realistic mileage costs and route options for whateve
 }
 
 // ---------- TABS ----------
-const TABS = ['cards','specials','redeem','concierge'];
+const TABS = ['cards','buy','balances','specials','redeem','concierge'];
 function switchTab(id){
   TABS.forEach(t=>{
     document.getElementById('tab-'+t).style.display = (t===id) ? 'block' : 'none';
     document.getElementById('tabbtn-'+t).classList.toggle('on', t===id);
   });
+  const appEl = document.querySelector('.app'); if(appEl) appEl.classList.toggle('cc-mode', id==='concierge');
   window.scrollTo({top:0, behavior:'instant'});
   localStorage.setItem('vdp_last_tab', id);
 }
@@ -1285,7 +1323,7 @@ refreshKeyUI();
   if(existing && el) el.value = existing;
   if(existing) fbPullAndListen(); else fbSetStatus('Sync not set up');
 })();
-switchTab('cards');
+switchTab('balances');
 
 // ---------- LOCK SCREEN ----------
 const PIN_HASH = '9989a37538faecc495bbe774b30fb447a1582b8f1bc14ac88dfd84996a7b799a';
